@@ -33,7 +33,8 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 # API del TAD Catalogo de peliculas
 # -----------------------------------------------------
-
+#325001
+#2003
 def newCatalog():
 
     catalog = {'movies': None,
@@ -42,19 +43,29 @@ def newCatalog():
                }
 
     catalog['movies'] = lt.newList('SINGLE_LINKED',)
-    catalog['ids'] = mp.newMap(325001,
+    catalog['ids'] = mp.newMap(2003,
                                    maptype='PROBING',
                                    loadfactor=1.0,
                                    comparefunction=compare_movies)
 
-    catalog['movies_name'] = mp.newMap(325001,
+    catalog['movies_name'] = mp.newMap(2003,
                                    maptype='PROBING',
                                    loadfactor=1.0,
                                    comparefunction=compare_movies)
     
     return catalog
 
+
+
 # Funciones para agregar informacion al catalogo
+
+def addmovie(catalog, movie):
+    lt.addLast(catalog['movies'], movie)
+    mp.put(catalog['ids'], movie['id'], movie)
+
+def addmovie_name(catalog, movie):
+    lt.addLast(catalog['movies'], movie)
+    mp.put(catalog['movies_name'], movie['title'], movie)
 
 
 
@@ -75,3 +86,5 @@ def compare_movies(pos1,pos2):
         return 1
     else:
         return -1
+        
+print(newCatalog())
