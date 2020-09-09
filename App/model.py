@@ -38,20 +38,15 @@ es decir contiene los modelos con los datos en memoria
 def newCatalog():
 
     catalog = {'movies': None,
-               'ids': None,
-               "movies_name":None
+               'ids': None
                }
 
-    catalog['movies'] = lt.newList('ARRAY_LIST',compare_movies)
+    catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
     catalog['ids'] = mp.newMap(2003,
                                    maptype='PROBING',
                                    loadfactor=1.0,
-                                   comparefunction=compare_movies)
+                                   comparefunction=compareMapMoviesIds)
 
-    catalog['movies_name'] = mp.newMap(2003,
-                                   maptype='PROBING',
-                                   loadfactor=1.0,
-                                   comparefunction=compare_movies)
     
     return catalog
 
@@ -61,26 +56,38 @@ def newCatalog():
 
 def addmovie(catalog, movie):
     lt.addLast(catalog['movies'], movie)
-    mp.put(catalog['ids'], movie['id'], movie)
-    mp.put(catalog['movies_name'], movie['title'], movie)
+    mp.put(catalog['ids'], int(movie['id']), movie)
 
 
 # ==============================
 # Funciones de consulta
 # ==============================
-
+def obtener_primera_pelicula(catalog):
+    lt.size(catalog["movie"])
 
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
 
-def compare_movies(pos1,pos2):
-    if(pos1 == pos2):
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
         return 0
-    if(pos1 > pos2):
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
+    
+def compareMapMoviesIds(id, entry):
+    """
+    Compara dos ids de películas, id es un identificador
+    y entry una pareja llave-valor
+    """
+    identry = me.getKey(entry)
+    if (int(id) == int(identry)):
+        return 0
+    elif (int(id) > int(identry)):
         return 1
     else:
         return -1
+
         
-print(newCatalog())

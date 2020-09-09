@@ -20,9 +20,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import config as cf
-from App import model
+import config 
+from DISClib.ADT import list as lt
+from DISClib.ADT import map as mp
+from DISClib.DataStructures import mapentry as me
+import model 
 import csv
+assert config
 
 
 """
@@ -36,11 +40,32 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-
-
+def initCatalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo
+    catalog = model.newCatalog()
+    return catalog
 
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+def loadCSVFile (file,catalog,cmpfunction):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        for elemento in row: 
+            model.addmovie(catalog,elemento)
+    return catalog
+
+
+def loadMovies(dire):
+    lst = loadCSVFile(dire,initCatalog,model.compareRecordIds) 
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+    return lst
+
+print(loadCSVFile("SmallMoviesDetailsCleaned.csv",initCatalog(),model.compareRecordIds)["ids"])
