@@ -35,7 +35,7 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 
 def newCatalog():
-    
+
     catalog = {'movies': None,
                'ids': None,
                }
@@ -70,7 +70,7 @@ def newCatalog():
 def compare_movies(pos1,pos2):
     if(pos1 == pos2):
         return 0
-    if(pos1 > pos):
+    if(pos1 > pos2):
         return 1
     else:
         return -1
