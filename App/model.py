@@ -28,14 +28,30 @@ assert config
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
-
 """
 
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
+def newCatalog():
+    
+    catalog = {'movies': None,
+               'ids': None,
+               }
 
+    catalog['books'] = lt.newList('SINGLE_LINKED',)
+    catalog['bookIds'] = mp.newMap(325001,
+                                   maptype='PROBING',
+                                   loadfactor=1.0,
+                                   comparefunction=compare_movies)
+
+    catalog['authors'] = mp.newMap(325001,
+                                   maptype='PROBING',
+                                   loadfactor=1.0,
+                                   comparefunction=compare_movies)
+    
+    return catalog
 
 # Funciones para agregar informacion al catalogo
 
@@ -51,4 +67,10 @@ es decir contiene los modelos con los datos en memoria
 # Funciones de Comparacion
 # ==============================
 
-
+def compare_movies(pos1,pos2):
+    if(pos1 == pos2):
+        return 0
+    if(pos1 > pos):
+        return 1
+    else:
+        return -1
