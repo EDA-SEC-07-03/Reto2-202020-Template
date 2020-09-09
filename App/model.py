@@ -31,22 +31,23 @@ es decir contiene los modelos con los datos en memoria
 """
 
 # -----------------------------------------------------
-# API del TAD Catalogo de Libros
+# API del TAD Catalogo de peliculas
 # -----------------------------------------------------
 
 def newCatalog():
 
     catalog = {'movies': None,
                'ids': None,
+               "movies_name":None
                }
 
-    catalog['books'] = lt.newList('SINGLE_LINKED',)
-    catalog['bookIds'] = mp.newMap(325001,
+    catalog['movies'] = lt.newList('SINGLE_LINKED',)
+    catalog['ids'] = mp.newMap(325001,
                                    maptype='PROBING',
                                    loadfactor=1.0,
                                    comparefunction=compare_movies)
 
-    catalog['authors'] = mp.newMap(325001,
+    catalog['movies_name'] = mp.newMap(325001,
                                    maptype='PROBING',
                                    loadfactor=1.0,
                                    comparefunction=compare_movies)
