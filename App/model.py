@@ -87,4 +87,5 @@ def compare_movies(pos1,pos2):
     else:
         return -1
         
-print(newCatalog())
+x = newCatalog()
+print(x["1"]["key"])
