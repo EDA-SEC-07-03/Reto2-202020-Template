@@ -42,7 +42,7 @@ def newCatalog():
                "movies_name":None
                }
 
-    catalog['movies'] = lt.newList('SINGLE_LINKED',)
+    catalog['movies'] = lt.newList('ARRAY_LIST',compare_movies)
     catalog['ids'] = mp.newMap(2003,
                                    maptype='PROBING',
                                    loadfactor=1.0,
@@ -62,11 +62,7 @@ def newCatalog():
 def addmovie(catalog, movie):
     lt.addLast(catalog['movies'], movie)
     mp.put(catalog['ids'], movie['id'], movie)
-
-def addmovie_name(catalog, movie):
-    lt.addLast(catalog['movies'], movie)
     mp.put(catalog['movies_name'], movie['title'], movie)
-
 
 
 # ==============================
