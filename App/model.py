@@ -42,7 +42,7 @@ def newCatalog():
                }
 
     catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
-    catalog['ids'] = mp.newMap(2003,
+    catalog['ids'] = mp.newMap(3026,
                                    maptype='PROBING',
                                    loadfactor=1.0,
                                    comparefunction=compareMapMoviesIds)
@@ -63,14 +63,16 @@ def addmovie(catalog, movie):
 # Funciones de consulta
 # ==============================
 def obtener_primera_pelicula(catalog):
-    lt.size(catalog["movie"])
-
+    return mp.get(catalog["ids"],2)
+def obtener_ultima_pelicula(catalog):
+    return mp.get(catalog["ids"],3026)
+    
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
 
-def compareRecordIds (recordA, recordB):
+def compareRecordIds(recordA, recordB):
     if int(recordA['id']) == int(recordB['id']):
         return 0
     elif int(recordA['id']) > int(recordB['id']):

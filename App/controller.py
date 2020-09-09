@@ -63,9 +63,9 @@ def loadCSVFile (file,catalog,cmpfunction):
     return catalog
 
 
-def loadMovies(dire):
-    lst = loadCSVFile(dire,initCatalog,model.compareRecordIds) 
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+def loadMovies(dire="SmallMoviesDetailsCleaned.csv"):
+    lst = loadCSVFile(dire,initCatalog(),model.compareRecordIds) 
     return lst
 
-print(loadCSVFile("SmallMoviesDetailsCleaned.csv",initCatalog(),model.compareRecordIds)["ids"])
+
+
