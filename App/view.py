@@ -58,7 +58,7 @@ def printMenu():
     
 """
 Menu principal
-"""1
+"""
 
 
 
@@ -78,7 +78,7 @@ while True:
         
     elif int(inputs[0]) == 3:
         print("Cargando numero de peliculas ....")
-        print (controller.numeros_peliculas(cont))
+        print (controller.numeros_peliculas(moviesfile,cont,model.compareRecordIds))
         
         
 
