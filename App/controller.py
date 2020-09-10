@@ -67,5 +67,9 @@ def loadMovies(dire="SmallMoviesDetailsCleaned.csv"):
     lst = loadCSVFile(dire,initCatalog(),model.compareRecordIds) 
     return lst
 
+x=loadMovies()
+datos1=model.obtener_primera_pelicula(x)
+datos2=model.obtener_ultima_pelicula(x)
+datos_primera=model.datos_pelicula(datos1,datos2)
 
 

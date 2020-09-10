@@ -42,7 +42,7 @@ def newCatalog():
                }
 
     catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
-    catalog['ids'] = mp.newMap(3026,
+    catalog['ids'] = mp.newMap(10,
                                    maptype='PROBING',
                                    loadfactor=1.0,
                                    comparefunction=compareMapMoviesIds)
@@ -62,11 +62,24 @@ def addmovie(catalog, movie):
 # ==============================
 # Funciones de consulta
 # ==============================
+
 def obtener_primera_pelicula(catalog):
     return mp.get(catalog["ids"],2)
 def obtener_ultima_pelicula(catalog):
-    return mp.get(catalog["ids"],3026)
+    return (mp.get(catalog["ids"],3026))
+
+def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
+    titulo=obtener_primera_pelicula["value"]["title"]
+    fecha_estreno=obtener_primera_pelicula["value"]["release_date"]
+    promedio_votacion=obtener_primera_pelicula["value"]["vote_average"]
+    idioma=obtener_primera_pelicula["value"]["spoken_languages"]
     
+    titulo2=obtener_ultima_pelicula["value"]["title"]
+    fecha_estreno2=obtener_ultima_pelicula["value"]["release_date"]
+    promedio_votacion2=obtener_ultima_pelicula["value"]["vote_average"]
+    idioma2=obtener_ultima_pelicula["value"]["spoken_languages"]
+    return (titulo,fecha_estreno,promedio_votacion,idioma,titulo2,fecha_estreno2,promedio_votacion2,idioma2)
+
 
 # ==============================
 # Funciones de Comparacion
