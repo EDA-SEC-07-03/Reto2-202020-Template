@@ -39,16 +39,65 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
-
-# ___________________________________________________
-#  Funciones para imprimir la inforamación de
-#  respuesta.  La vista solo interactua con
-#  el controlador.
-# ___________________________________________________
+moviesfile = "MoviesData/SmallMoviesDetailsCleaned.csv"
 
 
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
+    print("2- Cargar información en el catálogo")
+    print("3- Consultar el número de películas cargadas")
+    print("4- Imprimir primera y ultima pelicula")")
+    print("0- Salir")
+
+    
+"""
+Menu principal
+"""
+
+
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        # cont es el controlador que se usará de acá en adelante
+        cont = controller.--()
+
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos ....")
+        controller.--(cont, --)
+        print('peliculas cargadas: ' + str(controller.--(cont)))
+        
+    elif int(inputs[0]) == 3:
+        print("Cargando numero de peliculas ....")
+        controller.--(cont,--)
+        print('peliculas cargadas: ' + str(controller.--(cont)))
+
+    elif int(inputs[0]) == 4:
+        print("Cargando info primera y segunda pelicula ....")
+        print("___________________________________________________")
+        print("primera pelicula")
+        print("nombre de la pelicula:   "+ str(controller.--[0]))
+        print("fecha de estreno:   "+ str(controller.--[1]))
+        print("promedio de la votacion:   "+ str(controller.--[2]))
+        print("idioma de la pelicula:   "+ str(controller.--[3]))
+        
+        print("___________________________________________________")
+
+        print("segunda pelicula:     ")
+        print("nombre de la pelicula:   "+ str(controller.--[4]))
+        print("fecha de estreno:   "+ str(controller.--[5]))
+        print("promedio de la votacion:   "+ str(controller.--[6]))
+        print("idioma de la pelicula:   "+ str(controller.--[7]))
+      
+    else:
+        sys.exit(0)
+sys.exit(0)
