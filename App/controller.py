@@ -61,15 +61,20 @@ def loadCSVFile (file,catalog,cmpfunction):
         for elemento in row: 
             model.addmovie(catalog,elemento)
     return catalog
+def numeros_peliculas (file,catalog,cmpfunction):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    x = 0
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        for elemento in row: 
+            x += 1
+    return x
+def datos_primera(datos1 = dict, datos2 = dict):
+    datos_entrega = model.datos_pelicula(datos1, datos2)
+    return datos_entrega
 
 
 def loadMovies(dire="SmallMoviesDetailsCleaned.csv"):
     lst = loadCSVFile(dire,initCatalog(),model.compareRecordIds) 
     return lst
-
-x=loadMovies()
-datos1=model.obtener_primera_pelicula(x)
-datos2=model.obtener_ultima_pelicula(x)
-datos_primera=model.datos_pelicula(datos1,datos2)
-
-
