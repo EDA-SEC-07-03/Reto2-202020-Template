@@ -43,7 +43,6 @@ moviesfile = "MoviesData/SmallMoviesDetailsCleaned.csv"
 
 
 
-
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
@@ -53,10 +52,7 @@ def printMenu():
     print("1- Inicializar Catálogo")
     print("2- Cargar información en el catálogo")
     print("3- Consultar el número de películas cargadas")
-    print("4- Consultar la fecha de estreno")
-    print("5- Consultar el promedio de la votación")
-    print("6- Consultar el numero de votos")
-    print("7- Consultar el idioma de la pelicula")
+    print("4- Imprimir primera y ultima pelicula")")
     print("0- Salir")
 
     
@@ -73,36 +69,32 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         # cont es el controlador que se usará de acá en adelante
-        cont = controller.initCatalog()
+        cont = controller.--()
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.loadData(cont, moviesfile)
-        print('Libros cargados: ' + str(controller.booksSize(cont)))
+        controller.--(cont, --)
+        print('peliculas cargadas: ' + str(controller.--(cont)))
         
     elif int(inputs[0]) == 3:
         print("Cargando numero de peliculas ....")
-        controller.loadData(cont, moviesfile)
-        print('peliculas cargadas: ' + str(controller.booksSize(cont)))
-        
-        
+        controller.--(cont,--)
+        print('peliculas cargadas: ' + str(controller.--(cont)))
+
     elif int(inputs[0]) == 4:
-         print("cargando fecha de estreno ....")
-        controller.loadData(cont, moviesfile)
-        print('fecha de estreno: ' + str(controller.booksSize(cont)))
+        print("Cargando info primera y segunda pelicula ....")
+        Titulo1 = controller.--Titulo(cont, 1)
+        Titulo2 = controller.--Titulo(cont, Tamaño)
+        Fecha1 = controller.--Fecha(cont, 1):
+        Fecha2 = controller.--Fecha(cont,Tamaño):
+        Promedio1 = controller.--Promedio(cont, 1):
+        Promedio2 = controller.--Promedio(cont, Tamaño):
+        Votos1 = controller.--Votos(cont, 1):
+        Votos2 = controller.--Votos(cont, Tamaño):
+        Idioma1 = controller.--Idioma(cont, 1):
+        Idioma2 = controller.--Idioma(cont, Tamaño):
 
-    elif int(inputs[0]) == 5:
-        label = input("cargando promedio votacion: ")
-        books = controller.getBooksByTag(cont, label)
-        printBooksbyTag(books)
-
-    elif int(inputs[0]) == 6:
-        label = input("cargando numero de votos: ")
       
-    elif int(inputs[0]) == 7:
-        label = input("idioma de la pelicula: ")
-       
-
     else:
         sys.exit(0)
 sys.exit(0)
