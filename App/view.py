@@ -22,6 +22,7 @@
 
 import sys
 import config
+import model
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
