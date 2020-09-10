@@ -75,13 +75,9 @@ def datos_primera(datos1 = dict, datos2 = dict):
     return datos_entrega
 
 
-def loadMovies(dire="MoviesData/SmallMoviesDetailsCleaned.csv"):
-    lst = loadCSVFile(dire,initCatalog(),model.compareRecordIds) 
+def loadMovies(dire,catalog):
+    lst = loadCSVFile(dire,catalog,model.compareRecordIds) 
     return lst
 
-x=loadMovies()
-datos1=model.obtener_primera_pelicula(x)
-datos2=model.obtener_ultima_pelicula(x)
-datos_primera=model.datos_pelicula(datos1,datos2)
-print (datos_primera)
+
 
