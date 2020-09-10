@@ -63,7 +63,7 @@ def loadCSVFile (file,catalog,cmpfunction):
     return catalog
 
 
-def loadMovies(dire="SmallMoviesDetailsCleaned.csv"):
+def loadMovies(dire="MoviesData/SmallMoviesDetailsCleaned.csv"):
     lst = loadCSVFile(dire,initCatalog(),model.compareRecordIds) 
     return lst
 
@@ -71,5 +71,5 @@ x=loadMovies()
 datos1=model.obtener_primera_pelicula(x)
 datos2=model.obtener_ultima_pelicula(x)
 datos_primera=model.datos_pelicula(datos1,datos2)
-
+print (datos_primera)
 
