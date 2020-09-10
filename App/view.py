@@ -87,18 +87,18 @@ while True:
         print("Cargando info primera y segunda pelicula ....")
         print("___________________________________________________")
         print("primera pelicula")
-        print("nombre de la pelicula:   ", str(controller.datos_primera))
-        print("fecha de estreno:   ", str(controller.datos_primera))
-        print("promedio de la votacion:   ", str(controller.datos_primera))
-        print("idioma de la pelicula:   ", str(controller.datos_primera))
-        
+        print("nombre de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[0]))
+        print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[1]))
+        print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[2]))
+        print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[3]))
+    
         print("___________________________________________________")
 
         print("segunda pelicula:     ")
-        print("nombre de la pelicula:   ", str(controller.datos_primera))
-        print("fecha de estreno:   ", str(controller.datos_primera))
-        print("promedio de la votacion:   ", str(controller.datos_primera))
-        print("idioma de la pelicula:   ", str(controller.datos_primera))
+        print("nombre de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[4]))
+        print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[5]))
+        print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[6]))
+        print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[7]))
       
     else:
         sys.exit(0)

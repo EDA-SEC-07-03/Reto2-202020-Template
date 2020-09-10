@@ -70,7 +70,7 @@ def numeros_peliculas (file,catalog,cmpfunction):
         for elemento in row: 
             x += 1
     return x
-def datos_primera(datos1 = dict, datos2 = dict):
+def datos_primera(datos1 , datos2  ):
     datos_entrega = model.datos_pelicula(datos1, datos2)
     return datos_entrega
 
