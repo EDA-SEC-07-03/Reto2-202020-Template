@@ -39,17 +39,70 @@ operación seleccionada.
 # ___________________________________________________
 
 
+moviesfile = "MoviesData/SmallMoviesDetailsCleaned.csv"
 
-
-
-# ___________________________________________________
-#  Funciones para imprimir la inforamación de
-#  respuesta.  La vista solo interactua con
-#  el controlador.
-# ___________________________________________________
 
 
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
+    print("2- Cargar información en el catálogo")
+    print("3- Consultar el número de películas cargadas")
+    print("4- Consultar la fecha de estreno")
+    print("5- Consultar el promedio de la votación")
+    print("6- Consultar el numero de votos")
+    print("7- Consultar el idioma de la pelicula")
+    print("0- Salir")
+
+    
+"""
+Menu principal
+"""
+
+
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        # cont es el controlador que se usará de acá en adelante
+        cont = controller.initCatalog()
+
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos ....")
+        controller.loadData(cont, moviesfile)
+        print('Libros cargados: ' + str(controller.booksSize(cont)))
+        
+    elif int(inputs[0]) == 3:
+        print("Cargando numero de peliculas ....")
+        controller.loadData(cont, moviesfile)
+        print('peliculas cargadas: ' + str(controller.booksSize(cont)))
+        
+        
+    elif int(inputs[0]) == 4:
+         print("cargando fecha de estreno ....")
+        controller.loadData(cont, moviesfile)
+        print('fecha de estreno: ' + str(controller.booksSize(cont)))
+
+    elif int(inputs[0]) == 5:
+        label = input("cargando promedio votacion: ")
+        books = controller.getBooksByTag(cont, label)
+        printBooksbyTag(books)
+
+    elif int(inputs[0]) == 6:
+        label = input("cargando numero de votos: ")
+      
+    elif int(inputs[0]) == 7:
+        label = input("idioma de la pelicula: ")
+       
+
+    else:
+        sys.exit(0)
+sys.exit(0)
