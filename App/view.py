@@ -87,18 +87,18 @@ while True:
         print("Cargando info primera y segunda pelicula ....")
         print("___________________________________________________")
         print("primera pelicula")
-        print("nombre de la pelicula:   "+ str(controller.datos_primera[0]))
-        print("fecha de estreno:   "+ str(controller.datos_primera[1]))
-        print("promedio de la votacion:   "+ str(controller.datos_primera[2]))
-        print("idioma de la pelicula:   "+ str(controller.datos_primera[3]))
+        print("nombre de la pelicula:   ", str(controller.datos_primera[0]))
+        print("fecha de estreno:   ", str(controller.datos_primera[1]))
+        print("promedio de la votacion:   ", str(controller.datos_primera[2]))
+        print("idioma de la pelicula:   ", str(controller.datos_primera[3]))
         
         print("___________________________________________________")
 
         print("segunda pelicula:     ")
-        print("nombre de la pelicula:   "+ str(controller.datos_primera[4]))
-        print("fecha de estreno:   "+ str(controller.datos_primera[5]))
-        print("promedio de la votacion:   "+ str(controller.datos_primera[6]))
-        print("idioma de la pelicula:   "+ str(controller.datos_primera[7]))
+        print("nombre de la pelicula:   ", str(controller.datos_primera[4]))
+        print("fecha de estreno:   ", str(controller.datos_primera[5]))
+        print("promedio de la votacion:   ", str(controller.datos_primera[6]))
+        print("idioma de la pelicula:   ", str(controller.datos_primera[7]))
       
     else:
         sys.exit(0)
