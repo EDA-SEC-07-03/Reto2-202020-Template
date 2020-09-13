@@ -37,13 +37,13 @@ es decir contiene los modelos con los datos en memoria
 #325001
 #2003
 def newCatalog():
-    
+
     catalog = {'movies': None,
                'ids': None
                }
 
     catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
-    catalog['ids'] = mp.newMap(10,
+    catalog['ids'] = mp.newMap(325001,
                                    maptype='PROBING',
                                    loadfactor=0.5,
                                    comparefunction=compareMapMoviesIds)
@@ -57,7 +57,7 @@ def newCatalog():
 
 def addmovie(catalog, movie):
     lt.addLast(catalog['movies'], movie)
-    mp.put(catalog['ids'], int(movie['id\ufeffid']), movie)
+    mp.put(catalog['ids'], int(movie['\ufeffid']), movie)
 
 
 # ==============================
@@ -87,9 +87,9 @@ def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
 # ==============================
 
 def compareRecordIds(recordA, recordB):
-    if int(recordA['id\ufeffid']) == int(recordB['id\ufeffid']):
+    if int(recordA['\ufeffid']) == int(recordB['\ufeffid']):
         return 0
-    elif int(recordA['id\ufeffid']) > int(recordB['id\ufeffid']):
+    elif int(recordA['\ufeffid']) > int(recordB['\ufeffid']):
         return 1
     return -1
     
