@@ -20,6 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 import config
+from time import process_time
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
@@ -36,7 +37,7 @@ es decir contiene los modelos con los datos en memoria
 #325001
 #2003
 def newCatalog():
-
+    
     catalog = {'movies': None,
                'ids': None
                }
@@ -44,7 +45,7 @@ def newCatalog():
     catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
     catalog['ids'] = mp.newMap(10,
                                    maptype='PROBING',
-                                   loadfactor=1.0,
+                                   loadfactor=0.5,
                                    comparefunction=compareMapMoviesIds)
 
     

@@ -24,6 +24,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from time import process_time
 import model 
 import csv
 assert config
@@ -54,14 +55,16 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 def loadCSVFile (file,catalog,cmpfunction):
-    
+    tiempo1 = process_time()
     dialect = csv.excel()
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         for elemento in row: 
             model.addmovie(catalog,elemento)
-    return catalog
+    tiempo2 = process_time()
+    tiempo = tiempo2-tiempo1
+    return (catalog, tiempo)
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
     dialect.delimiter=";"
