@@ -23,6 +23,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from time import process_time
 assert config
 
 """
@@ -42,9 +43,9 @@ def newCatalog():
                }
 
     catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
-    catalog['ids'] = mp.newMap(10,
+    catalog['ids'] = mp.newMap(325001,
                                    maptype='PROBING',
-                                   loadfactor=1.0,
+                                   loadfactor=0.5,
                                    comparefunction=compareMapMoviesIds)
 
     
@@ -56,7 +57,7 @@ def newCatalog():
 
 def addmovie(catalog, movie):
     lt.addLast(catalog['movies'], movie)
-    mp.put(catalog['ids'], int(movie['id']), movie)
+    mp.put(catalog['ids'], int(movie['\ufeffid']), movie)
 
 
 # ==============================
@@ -86,9 +87,9 @@ def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
 # ==============================
 
 def compareRecordIds(recordA, recordB):
-    if int(recordA['id']) == int(recordB['id']):
+    if int(recordA['\ufeffid']) == int(recordB['\ufeffid']):
         return 0
-    elif int(recordA['id']) > int(recordB['id']):
+    elif int(recordA['\ufeffid']) > int(recordB['\ufeffid']):
         return 1
     return -1
     
@@ -104,5 +105,3 @@ def compareMapMoviesIds(id, entry):
         return 1
     else:
         return -1
-
-        
