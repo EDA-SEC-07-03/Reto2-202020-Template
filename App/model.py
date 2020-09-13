@@ -57,7 +57,7 @@ def newCatalog():
 
 def addmovie(catalog, movie):
     lt.addLast(catalog['movies'], movie)
-    mp.put(catalog['ids'], int(movie['id']), movie)
+    mp.put(catalog['ids'], int(movie['id\ufeffid']), movie)
 
 
 # ==============================
@@ -87,9 +87,9 @@ def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
 # ==============================
 
 def compareRecordIds(recordA, recordB):
-    if int(recordA['id']) == int(recordB['id']):
+    if int(recordA['id\ufeffid']) == int(recordB['id\ufeffid']):
         return 0
-    elif int(recordA['id']) > int(recordB['id']):
+    elif int(recordA['id\ufeffid']) > int(recordB['id\ufeffid']):
         return 1
     return -1
     

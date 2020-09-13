@@ -65,7 +65,7 @@ def printMenu():
 """
 Menu principal
 """
-
+moviesfile = "AllMoviesDetailsCleaned.csv"
 
 while True:
     printMenu()
@@ -78,7 +78,7 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.loadMovies(moviesfile,cont)
+        controller.loadMovies(moviesfile)
         
         
     elif int(inputs[0]) == 3:
