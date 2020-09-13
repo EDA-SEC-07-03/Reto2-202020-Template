@@ -20,6 +20,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 import config
+import controller as ctr
+import csv
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
@@ -36,17 +38,21 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 #325001
 #2003
+
 def newCatalog():
 
-    catalog = {'movies': None,
-               'ids': None
-               }
+    catalog = {"movies":None,'ids': None,"productora":None
+                }
+    catalog["movies"]=lt.newList("ARRAY_LIST")
 
-    catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
-    catalog['ids'] = mp.newMap(325001,
+    catalog['ids'] = mp.newMap(30,
                                    maptype='PROBING',
                                    loadfactor=0.5,
                                    comparefunction=compareMapMoviesIds)
+    catalog["productora"]= mp.newMap(30,
+                                   maptype='PROBING',
+                                   loadfactor=0.5,
+                                   comparefunction=1)
 
     
     return catalog
@@ -56,8 +62,8 @@ def newCatalog():
 # Funciones para agregar informacion al catalogo
 
 def addmovie(catalog, movie):
-    lt.addLast(catalog['movies'], movie)
-    mp.put(catalog['ids'], int(movie['\ufeffid']), movie)
+    mp.put(catalog['ids'], int(movie['id']), movie)
+    catalog["movies"]
 
 
 # ==============================
@@ -67,7 +73,7 @@ def addmovie(catalog, movie):
 def obtener_primera_pelicula(catalog):
     return mp.get(catalog["ids"],2)
 def obtener_ultima_pelicula(catalog):
-    return (mp.get(catalog["ids"],3026))
+    return (mp.get(catalog["ids"],469219))
 
 def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
     titulo=obtener_primera_pelicula["value"]["title"]
@@ -87,9 +93,9 @@ def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
 # ==============================
 
 def compareRecordIds(recordA, recordB):
-    if int(recordA['\ufeffid']) == int(recordB['\ufeffid']):
+    if int(recordA['id']) == int(recordB['id']):
         return 0
-    elif int(recordA['\ufeffid']) > int(recordB['\ufeffid']):
+    elif int(recordA['id']) > int(recordB['id']):
         return 1
     return -1
     
@@ -105,3 +111,37 @@ def compareMapMoviesIds(id, entry):
         return 1
     else:
         return -1
+def compareMapMoviesCompany(id=5,entry={"key":3,"value":"hola"}):
+    """
+    Compara dos ids de películas, id es un identificador
+    y entry una pareja llave-valor
+    """
+    identry = me.getKey(entry)
+    print(identry)
+
+#compareMapMoviesCompany()
+
+#_________________________________________________________________________
+
+def loadCSVFile (file,catalog):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        for elemento in row: 
+            addmovie(catalog,elemento)
+    return catalog
+
+def load_productora_first(file,catalogo,xd):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        if(xd == 0):
+            for elemento in row:
+                if():
+
+        
+vacio=newCatalog()
+catalogox= loadCSVFile("SmallMoviesDetailsCleaned.csv",vacio)
+xdasd=load_productora_first("SmallMoviesDetailsCleaned.csv",vacio,0)
