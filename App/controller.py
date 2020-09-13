@@ -54,6 +54,7 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 def loadCSVFile (file,catalog,cmpfunction):
+    
     dialect = csv.excel()
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
@@ -75,6 +76,6 @@ def datos_primera(datos1 = dict, datos2 = dict):
     return datos_entrega
 
 
-def loadMovies(dire="SmallMoviesDetailsCleaned.csv"):
+def loadMovies(dire="AllMoviesDetailsCleaned.csv"):
     lst = loadCSVFile(dire,initCatalog(),model.compareRecordIds) 
     return lst
