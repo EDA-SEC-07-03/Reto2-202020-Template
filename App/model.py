@@ -44,8 +44,8 @@ def newCatalog():
 
     catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
     catalog['ids'] = mp.newMap(325001,
-                                   maptype='PROBING',
-                                   loadfactor=0.5,
+                                   maptype='CHAINING',
+                                   loadfactor=1.0,
                                    comparefunction=compareMapMoviesIds)
 
     

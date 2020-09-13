@@ -64,7 +64,7 @@ def loadCSVFile (file,catalog,cmpfunction):
             model.addmovie(catalog,elemento)
     tiempo2 = process_time()
     tiempo = tiempo2-tiempo1
-    return (catalog, tiempo)
+    return (catalog)
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
     dialect.delimiter=";"

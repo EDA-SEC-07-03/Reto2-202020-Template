@@ -78,8 +78,10 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
+        tiempo1 = process_time()
         controller.loadMovies(moviesfile)
-        
+        tiempo2 = process_time()
+        print(round((tiempo2-tiempo1),2))
         
     elif int(inputs[0]) == 3:
         print("Cargando numero de peliculas ....")
