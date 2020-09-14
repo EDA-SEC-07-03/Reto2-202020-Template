@@ -36,38 +36,10 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 #325001
 #2003
-def newCatalog():
-
-    catalog = {'movies': None,
-               'ids': None
-               }
-
-    catalog['movies'] = lt.newList('ARRAY_LIST',compareRecordIds)
-    catalog['ids'] = mp.newMap(325001,
-                                   maptype='CHAINING',
-                                   loadfactor=1.0,
-                                   comparefunction=compareMapMoviesIds)
-
-    
-    return catalog
-
-
-
-# Funciones para agregar informacion al catalogo
-
-def addmovie(catalog, movie):
-    lt.addLast(catalog['movies'], movie)
-    mp.put(catalog['ids'], int(movie['\ufeffid']), movie)
-
-
-# ==============================
-# Funciones de consulta
-# ==============================
-
 def obtener_primera_pelicula(catalog):
     return mp.get(catalog["ids"],2)
 def obtener_ultima_pelicula(catalog):
-    return (mp.get(catalog["ids"],3026))
+    return (mp.get(catalog["ids"],469219))
 
 def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
     titulo=obtener_primera_pelicula["value"]["title"]
@@ -87,9 +59,9 @@ def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
 # ==============================
 
 def compareRecordIds(recordA, recordB):
-    if int(recordA['\ufeffid']) == int(recordB['\ufeffid']):
+    if int(recordA['id']) == int(recordB['id']):
         return 0
-    elif int(recordA['\ufeffid']) > int(recordB['\ufeffid']):
+    elif int(recordA['id']) > int(recordB['id']):
         return 1
     return -1
     
@@ -105,5 +77,23 @@ def compareMapMoviesIds(id, entry):
         return 1
     else:
         return -1
+def compareMapMoviesCompany(id=5,entry={"key":3,"value":"hola"}):
+    """
+    Compara dos ids de películas, id es un identificador
+    y entry una pareja llave-valor
+    """
+    identry = me.getKey(entry)
+    print(identry)
 
-        
+#compareMapMoviesCompany()
+
+#_________________________________________________________________________
+
+def loadCSVFile (file,catalog):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        for elemento in row: 
+            addmovie(catalog,elemento)
+    return catalog     
