@@ -24,7 +24,8 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
-import model
+from time import process_time
+import model 
 import csv
 assert config
 
@@ -36,7 +37,7 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-"asd"
+
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
@@ -53,17 +54,17 @@ def initCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def loadCSVFile (file,catalog):
+def loadCSVFile (file,catalog,cmpfunction):
+    tiempo1 = process_time()
     dialect = csv.excel()
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         for elemento in row: 
             model.addmovie(catalog,elemento)
-            companies=[elemento["production_companies"]]
-            for i in companies:
-                model.addmovie_company(catalog,i,elemento)
-
+    tiempo2 = process_time()
+    tiempo = tiempo2-tiempo1
+    return (catalog)
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
     dialect.delimiter=";"
@@ -73,17 +74,11 @@ def numeros_peliculas (file,catalog,cmpfunction):
         for elemento in row: 
             x += 1
     return x
-
-def datos_primera(datos1, datos2):
+def datos_primera(datos1 = dict, datos2 = dict):
     datos_entrega = model.datos_pelicula(datos1, datos2)
     return datos_entrega
 
-def loadMovies(dire,catalog):
-    loadCSVFile(dire,catalog)
 
-xd=initCatalog()
-loadCSVFile("AllMoviesDetailsCleaned.csv",xd)
-asd=model.encontrar_compañia("Pixar Animation Studios",xd)
-print(asd)
-
-
+def loadMovies(dire="AllMoviesDetailsCleaned.csv"):
+    lst = loadCSVFile(dire,initCatalog(),model.compareRecordIds) 
+    return lst
