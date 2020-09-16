@@ -36,7 +36,7 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-
+"asd"
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
@@ -61,6 +61,7 @@ def loadCSVFile (file,catalog,cmpfunction):
         for elemento in row: 
             model.addmovie(catalog,elemento)
     return catalog
+
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
     dialect.delimiter=";"
@@ -70,10 +71,10 @@ def numeros_peliculas (file,catalog,cmpfunction):
         for elemento in row: 
             x += 1
     return x
-def datos_primera(datos1 , datos2  ):
+
+def datos_primera(datos1, datos2):
     datos_entrega = model.datos_pelicula(datos1, datos2)
     return datos_entrega
-
 
 def loadMovies(dire,catalog):
     lst = loadCSVFile(dire,catalog,model.compareRecordIds) 
