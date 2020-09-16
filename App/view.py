@@ -55,6 +55,7 @@ def printMenu():
     print("2- Cargar información en el catálogo")
     print("3- Consultar el número de películas cargadas")
     print("4- Imprimir primera y ultima pelicula")
+    print("5- Descubrir productoras de cine")
     print("0- Salir")
 
     
@@ -104,7 +105,18 @@ while True:
         print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[5]))
         print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[6]))
         print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[7]))
-      
+
+
+    elif int(inputs[0]) == 5:
+        productora_a_buscar = input(str(" digite compañía de producción: "))
+
+        print("peliculas producidas por ", productora_a_buscar)
+        print("total de peliculas de ", productora_a_buscar)
+        print("promedio de la calificacion de peliculas de ",productora_a_buscar)
+        
+
+
+
     else:
         sys.exit(0)
 sys.exit(0)
