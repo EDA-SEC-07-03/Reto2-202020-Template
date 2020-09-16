@@ -24,7 +24,8 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
-import model
+from time import process_time
+import model 
 import csv
 assert config
 
@@ -36,7 +37,7 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-"asd"
+
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
@@ -73,17 +74,13 @@ def numeros_peliculas (file,catalog,cmpfunction):
         for elemento in row: 
             x += 1
     return x
-
-def datos_primera(datos1, datos2):
+def datos_primera(datos1 , datos2  ):
     datos_entrega = model.datos_pelicula(datos1, datos2)
     return datos_entrega
 
 def loadMovies(dire,catalog):
     loadCSVFile(dire,catalog)
 
-xd=initCatalog()
-loadCSVFile("AllMoviesDetailsCleaned.csv",xd)
-asd=model.encontrar_compañia("Pixar Animation Studios",xd)
-print(asd)
-
-
+def conocer_compañia(catalog, compañia):
+    x = model.encontrar_compañia(compañia, catalog)
+    return x
