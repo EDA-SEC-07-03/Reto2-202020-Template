@@ -24,7 +24,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
-import model 
+import model
 import csv
 assert config
 
@@ -53,14 +53,16 @@ def initCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def loadCSVFile (file,catalog,cmpfunction):
+def loadCSVFile (file,catalog):
     dialect = csv.excel()
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         for elemento in row: 
             model.addmovie(catalog,elemento)
-    return catalog
+            companies=[elemento["production_companies"]]
+            for i in companies:
+                model.addmovie_company(catalog,i,elemento)
 
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
@@ -77,8 +79,11 @@ def datos_primera(datos1, datos2):
     return datos_entrega
 
 def loadMovies(dire,catalog):
-    lst = loadCSVFile(dire,catalog,model.compareRecordIds) 
-    return lst
+    loadCSVFile(dire,catalog)
 
+xd=initCatalog()
+loadCSVFile("AllMoviesDetailsCleaned.csv",xd)
+asd=model.encontrar_compañia("Pixar Animation Studios",xd)
+print(asd)
 
 

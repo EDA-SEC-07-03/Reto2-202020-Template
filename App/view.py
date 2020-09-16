@@ -26,6 +26,7 @@ import model
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+from time import process_time 
 assert config
 
 """
@@ -40,7 +41,7 @@ operación seleccionada.
 # ___________________________________________________
 
 
-moviesfile = "MoviesData/SmallMoviesDetailsCleaned.csv"
+moviesfile = "AllMoviesDetailsCleaned.csv"
 
 
 
@@ -74,7 +75,11 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
+        tiempo1=process_time()
         controller.loadMovies(moviesfile,cont)
+        tiempo2=process_time()
+        total=tiempo2-tiempo1
+        print(total)
         
         
     elif int(inputs[0]) == 3:
