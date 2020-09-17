@@ -44,7 +44,7 @@ def newCatalog():
                 }
     catalog["movies"]=lt.newList("ARRAY_LIST",compareRecordIds)
 
-    catalog['ids'] = mp.newMap(400000,
+    catalog['ids'] = mp.newMap(470863,
                                    maptype='CHAINING',
                                    loadfactor=1,
                                    comparefunction=moviesIds)
