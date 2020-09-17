@@ -110,10 +110,26 @@ while True:
     elif int(inputs[0]) == 5:
         productora_a_buscar = input(str(" digite compañía de producción: "))
 
-        print("peliculas producidas por ", productora_a_buscar)
-        print("total de peliculas de ", productora_a_buscar)
-        print("promedio de la calificacion de peliculas de ",productora_a_buscar)
+        mapa= asd["value"]["pelicula"]
+        total=lt.size(mapa)
+        mapax= asd["value"]["vote_average"]
+        print("-----------------------------------------------")
+        for i in range(1,lt.size(mapa)+1):
+            elemento=lt.getElement(mapa,i)
+            print("peliculas producidas por la productora:   " elemento["title"])
         
+        print("-----------------------------------------------")
+
+        print("total de peliculas" total)
+
+        print("-----------------------------------------------")
+
+        print("promedio de votos" mapax)
+
+        print("-----------------------------------------------")
+
+
+
 
 
 
