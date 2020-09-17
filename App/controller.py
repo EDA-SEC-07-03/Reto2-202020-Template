@@ -81,9 +81,3 @@ def datos_primera(datos1, datos2):
 def loadMovies(dire,catalog):
     loadCSVFile(dire,catalog)
 
-xd=initCatalog()
-loadCSVFile("AllMoviesDetailsCleaned.csv",xd)
-asd=model.encontrar_compañia("Pixar Animation Studios",xd)
-print(asd)
-
-
