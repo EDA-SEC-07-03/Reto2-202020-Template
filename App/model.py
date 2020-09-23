@@ -94,9 +94,6 @@ def newCompanie(name):
 def encontrar_compañia(compania,catalogo):
     companie=mp.get(catalogo["productora"],compania)
     return companie
-def conocer_direcotor(director, catalogo):
-    datos = mp.get(catalogo["director"],director)
-    return datos
 def obtener_primera_pelicula(catalog):
     return mp.get(catalog["ids"],2)
 def obtener_ultima_pelicula(catalog):
