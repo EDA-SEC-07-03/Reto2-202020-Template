@@ -22,9 +22,13 @@
 
 import sys
 import config
+import model
+from DISClib.ADT import map as mp
+from DISClib.DataStructures import mapentry as me
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+from time import process_time 
 assert config
 
 """
@@ -39,7 +43,7 @@ operación seleccionada.
 # ___________________________________________________
 
 
-moviesfile = "MoviesData/SmallMoviesDetailsCleaned.csv"
+moviesfile = "AllMoviesDetailsCleaned.csv"
 
 
 
@@ -52,7 +56,10 @@ def printMenu():
     print("1- Inicializar Catálogo")
     print("2- Cargar información en el catálogo")
     print("3- Consultar el número de películas cargadas")
-    print("4- Imprimir primera y ultima pelicula")")
+    print("4- Imprimir primera y ultima pelicula")
+    
+    print("5- Descubrir productoras de cine")
+    print("7- Imprimir película por género")
     print("0- Salir")
 
     
@@ -69,32 +76,88 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         # cont es el controlador que se usará de acá en adelante
-        cont = controller.--()
+        cont = controller.initCatalog()
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.--(cont, --)
-        print('peliculas cargadas: ' + str(controller.--(cont)))
+        tiempo1=process_time()
+        controller.loadMovies(moviesfile,cont)
+        tiempo2=process_time()
+        total=tiempo2-tiempo1
+        print(total, "segundos")
+        
         
     elif int(inputs[0]) == 3:
         print("Cargando numero de peliculas ....")
-        controller.--(cont,--)
-        print('peliculas cargadas: ' + str(controller.--(cont)))
+        print (controller.numeros_peliculas(moviesfile,cont,model.compareRecordIds))
+        
+        
 
     elif int(inputs[0]) == 4:
         print("Cargando info primera y segunda pelicula ....")
-        Titulo1 = controller.--Titulo(cont, 1)
-        Titulo2 = controller.--Titulo(cont, Tamaño)
-        Fecha1 = controller.--Fecha(cont, 1):
-        Fecha2 = controller.--Fecha(cont,Tamaño):
-        Promedio1 = controller.--Promedio(cont, 1):
-        Promedio2 = controller.--Promedio(cont, Tamaño):
-        Votos1 = controller.--Votos(cont, 1):
-        Votos2 = controller.--Votos(cont, Tamaño):
-        Idioma1 = controller.--Idioma(cont, 1):
-        Idioma2 = controller.--Idioma(cont, Tamaño):
+        print("___________________________________________________")
+        print("primera pelicula")
+        print("nombre de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[0]))
+        print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[1]))
+        print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[2]))
+        print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[3]))
+    
+        print("___________________________________________________")
 
-      
+        print("segunda pelicula:     ")
+        print("nombre de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[4]))
+        print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[5]))
+        print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[6]))
+        print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[7]))
+    
+    
+
+
+    elif int(inputs[0]) == 5:
+        productora_a_buscar = input(str(" digite compañía de producción: "))
+        asd = controller.conocer_compañia(cont,productora_a_buscar)
+        mapa= asd["value"]["pelicula"]
+        total=lt.size(mapa)
+        mapax= asd["value"]["vote_average"]
+        print("-----------------------------------------------")
+        for i in range(1,lt.size(mapa)+1):
+            elemento=lt.getElement(mapa,i)
+            print("peliculas producidas por la productora:   ", elemento["title"])
+        
+        print("-----------------------------------------------")
+
+        print("total de peliculas", total)
+
+        print("-----------------------------------------------")
+
+        print("promedio de votos", mapax)
+
+        print("-----------------------------------------------")
+
+        elif int(inputs[0]) == 7:
+        generox=input("Digite su género a buscar:\n")
+        pelis=controller.conocer_genero(cont,generox)
+        pelisx=me.getValue(pelis)
+        pelis1=pelisx["pelicula"]
+        promedio=pelisx["vote_average"]
+        print("______________________________________________")
+        print("Género elegido:",generox)
+        print("Total películas",lt.size(pelis1))
+        print("Promedio del género",promedio)
+        print("______________________________________________")
+        x=1
+        for i in range(1,lt.size(pelis1)+1):
+            elem=lt.getElement(pelis1,i)
+            print(x,elem)
+            x+=1
+        print("______________________________________________")
+        print("Género elegido:",generox)
+        print("Total películas",lt.size(pelis1))
+        print("Promedio del género",promedio)
+        print("______________________________________________")
+
+
+
     else:
         sys.exit(0)
 sys.exit(0)

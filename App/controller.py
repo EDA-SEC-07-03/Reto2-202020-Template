@@ -20,9 +20,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import config as cf
-from App import model
+import config 
+from DISClib.ADT import list as lt
+from DISClib.ADT import map as mp
+from DISClib.DataStructures import mapentry as me
+from time import process_time
+import model 
 import csv
+assert config
 
 
 """
@@ -36,11 +41,56 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-
-
+def initCatalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo
+    catalog = model.newCatalog()
+    return catalog
 
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+def loadCSVFile (file,catalog):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        for elemento in row: 
+            model.addmovie(catalog,elemento)
+            companies=[elemento["production_companies"]]
+            genero=elemento["genres"].split("|")
+            for cm in companies:
+                model.addmovie_company(catalog,cm,elemento)
+            for gn in  genero:
+                model.addmovie_genre(catalog,gn,elemento)
+
+def numeros_peliculas (file,catalog,cmpfunction):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    x = 0
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        for elemento in row: 
+            x += 1
+    return x
+def datos_primera(datos1 , datos2  ):
+    datos_entrega = model.datos_pelicula(datos1, datos2)
+    return datos_entrega
+
+def loadMovies(dire,catalog):
+    loadCSVFile(dire,catalog)
+
+def conocer_compañia(catalog, compañia):
+    x = model.encontrar_compañia(compañia, catalog)
+    return x
+def conocer_genero(catalog,genero):
+    x= model.encontrar_genero(genero,catalog)
+    return x
+
+
+
+
