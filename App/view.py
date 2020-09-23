@@ -58,7 +58,7 @@ def printMenu():
     print("3- Consultar el número de películas cargadas")
     print("4- Imprimir primera y ultima pelicula")
     
-    
+    print("5- Descubrir productoras de cine")
     print("7- Imprimir película por género")
     print("0- Salir")
 
@@ -84,7 +84,7 @@ while True:
         controller.loadMovies(moviesfile,cont)
         tiempo2=process_time()
         total=tiempo2-tiempo1
-        print(total)
+        print(total, "segundos")
         
         
     elif int(inputs[0]) == 3:
@@ -110,7 +110,31 @@ while True:
         print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[6]))
         print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[7]))
     
-    elif int(inputs[0]) == 7:
+    
+
+
+    elif int(inputs[0]) == 5:
+        productora_a_buscar = input(str(" digite compañía de producción: "))
+        asd = controller.conocer_compañia(cont,productora_a_buscar)
+        mapa= asd["value"]["pelicula"]
+        total=lt.size(mapa)
+        mapax= asd["value"]["vote_average"]
+        print("-----------------------------------------------")
+        for i in range(1,lt.size(mapa)+1):
+            elemento=lt.getElement(mapa,i)
+            print("peliculas producidas por la productora:   ", elemento["title"])
+        
+        print("-----------------------------------------------")
+
+        print("total de peliculas", total)
+
+        print("-----------------------------------------------")
+
+        print("promedio de votos", mapax)
+
+        print("-----------------------------------------------")
+
+        elif int(inputs[0]) == 7:
         generox=input("Digite su género a buscar:\n")
         pelis=controller.conocer_genero(cont,generox)
         pelisx=me.getValue(pelis)
@@ -131,6 +155,8 @@ while True:
         print("Total películas",lt.size(pelis1))
         print("Promedio del género",promedio)
         print("______________________________________________")
+
+
 
     else:
         sys.exit(0)
