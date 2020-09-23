@@ -134,7 +134,7 @@ while True:
 
         print("-----------------------------------------------")
 
-        elif int(inputs[0]) == 7:
+    elif int(inputs[0]) == 7:
         generox=input("Digite su género a buscar:\n")
         pelis=controller.conocer_genero(cont,generox)
         pelisx=me.getValue(pelis)
