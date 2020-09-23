@@ -22,10 +22,11 @@
 
 import sys
 import config
-from time import process_time
+import model
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+from time import process_time 
 assert config
 
 """
@@ -40,32 +41,29 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
-
-# ___________________________________________________
-#  Funciones para imprimir la inforamación de
-#  respuesta.  La vista solo interactua con
-#  el controlador.
-# ___________________________________________________
+moviesfile = "AllMoviesDetailsCleaned.csv"
 
 
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
 def printMenu():
     print("Bienvenido")
     print("1- Inicializar Catálogo")
     print("2- Cargar información en el catálogo")
     print("3- Consultar el número de películas cargadas")
     print("4- Imprimir primera y ultima pelicula")
+    print("5- Descubrir productoras de cine")
     print("0- Salir")
 
     
 """
 Menu principal
 """
-moviesfile = "AllMoviesDetailsCleaned.csv"
+
+
 
 while True:
     printMenu()
@@ -78,10 +76,12 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        tiempo1 = process_time()
-        controller.loadMovies(moviesfile)
-        tiempo2 = process_time()
-        print(round((tiempo2-tiempo1),2))
+        tiempo1=process_time()
+        print(controller.loadMovies(moviesfile,cont))
+        tiempo2=process_time()
+        total=tiempo2-tiempo1
+        print(total, "segundos")
+        
         
     elif int(inputs[0]) == 3:
         print("Cargando numero de peliculas ....")
@@ -105,7 +105,34 @@ while True:
         print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[5]))
         print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[6]))
         print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[7]))
-      
+
+
+    elif int(inputs[0]) == 5:
+        productora_a_buscar = input(str(" digite compañía de producción: "))
+        asd = controller.conocer_compañia(cont,productora_a_buscar)
+        mapa= asd["value"]["pelicula"]
+        total=lt.size(mapa)
+        mapax= asd["value"]["vote_average"]
+        print("-----------------------------------------------")
+        for i in range(1,lt.size(mapa)+1):
+            elemento=lt.getElement(mapa,i)
+            print("peliculas producidas por la productora:   ", elemento["title"])
+        
+        print("-----------------------------------------------")
+
+        print("total de peliculas", total)
+
+        print("-----------------------------------------------")
+
+        print("promedio de votos", mapax)
+
+        print("-----------------------------------------------")
+
+
+
+
+
+
     else:
         sys.exit(0)
 sys.exit(0)
