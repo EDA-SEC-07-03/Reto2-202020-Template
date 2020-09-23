@@ -62,8 +62,11 @@ def loadCSVFile (file,catalog):
         for elemento in row: 
             model.addmovie(catalog,elemento)
             companies=[elemento["production_companies"]]
-            for i in companies:
-                model.addmovie_company(catalog,i,elemento)
+            genero=elemento["genres"].split("|")
+            for cm in companies:
+                model.addmovie_company(catalog,cm,elemento)
+            for gn in  genero:
+                model.addmovie_genre(catalog,gn,elemento)
 
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
@@ -84,3 +87,10 @@ def loadMovies(dire,catalog):
 def conocer_compañia(catalog, compañia):
     x = model.encontrar_compañia(compañia, catalog)
     return x
+def conocer_genero(catalog,genero):
+    x= model.encontrar_genero(genero,catalog)
+    return x
+
+
+
+

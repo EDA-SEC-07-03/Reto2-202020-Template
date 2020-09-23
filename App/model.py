@@ -40,10 +40,12 @@ es decir contiene los modelos con los datos en memoria
 
 def newCatalog():
 
-    catalog = {"movies":None,'ids': None,"productora":None
+    catalog = {"movies":None,'ids': None,"productora":None,"genero":None
                 }
     catalog["movies"]=lt.newList("ARRAY_LIST",compareRecordIds)
-
+    catalog["genero"]=mp.newMap(23,maptype='CHAINING',
+                                   loadfactor=1,
+                                   comparefunction=compare_companies_byname)
     catalog['ids'] = mp.newMap(470863,
                                    maptype='CHAINING',
                                    loadfactor=1,
@@ -80,6 +82,24 @@ def addmovie_company(catalogo,nombre_compañia,pelicula):
         companie['vote_average'] = float(movieavg)
     else:
         companie['vote_average'] = (cmpavg + float(movieavg)) / 2
+        
+def addmovie_genre(catalogo,nombre_genero,pelicula):
+    generos=catalogo["genero"]
+    existe_genero=mp.contains(generos,nombre_genero)
+    if(existe_genero):
+        llave_valor=mp.get(generos,nombre_genero)
+        valor=me.getValue(llave_valor)
+    else:
+        valor = newCompanie(nombre_genero)
+        mp.put(generos, nombre_genero, valor)
+    lt.addLast(valor["pelicula"],pelicula["title"])
+    cmpavg = valor['vote_average']
+    movieavg=pelicula["vote_average"]
+    if(movieavg == 0.0):
+        valor["vote_average"]=float(movieavg)
+    else:
+        valor['vote_average'] = (cmpavg + float(movieavg)) / 2
+
 
 def newCompanie(name):
     pelicula = {'name': "", "pelicula": None,  "vote_average": 0}
@@ -94,6 +114,9 @@ def newCompanie(name):
 def encontrar_compañia(compania,catalogo):
     companie=mp.get(catalogo["productora"],compania)
     return companie
+def encontrar_genero(nombre_genero,catalogo):
+    genero=mp.get(catalogo["genero"],nombre_genero)
+    return genero
 def obtener_primera_pelicula(catalog):
     return mp.get(catalog["ids"],2)
 def obtener_ultima_pelicula(catalog):
