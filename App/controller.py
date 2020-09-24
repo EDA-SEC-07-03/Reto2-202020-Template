@@ -112,6 +112,9 @@ def conocer_actor(catalog, actor):
 def conocer_compañia(catalog, compañia):
     x = model.encontrar_compañia(compañia, catalog)
     return x
+def conocer_director(catalog, nombre_director):
+    x = model.conocer_director(nombre_director, catalog)
+    return x
 def conocer_genero(catalog,genero):
     x= model.encontrar_genero(genero,catalog)
     return x

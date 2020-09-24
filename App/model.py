@@ -114,6 +114,25 @@ def addmovie_genre(catalogo,nombre_genero,pelicula):
         valor["vote_average"]=float(movieavg)
     else:
         valor['vote_average'] = (cmpavg + float(movieavg)) / 2
+def addmovie_director(catalog, nombre_director, casting):
+    director = catalog["actor"]
+    pos_pelicula = int(casting["id"])
+    pelicula = me.getValue(mp.get(catalog["ids"], pos_pelicula))
+    existe_director = mp.contains(director,nombre_director)
+    if existe_director:
+        llave_valor = mp.get(actor, nombre_director)
+        valor = me.getValue(llave_valor)
+    else:
+        valor = newCompanie(nombre_director)
+        mp.put(actor, nombre_director, valor)
+
+    lt.addLast(valor["pelicula"],pelicula)
+    promedio = valor["vote_average"]
+    pro_movie = pelicula["vote_average"]
+    if(pro_movie == 0.0):
+        valor["vote_average"]=float(pro_movie)
+    else:
+        valor['vote_average'] = (promedio + float(pro_movie)) / 2
 def addmovie_actor(catalog, nombre_actor, casting):
     actor = catalog["actor"]
     pos_pelicula = int(casting["id"])
@@ -176,6 +195,9 @@ def conocer_pais(nombre_pais,catalogo):
 def conocer_actor(nombre_actor,catalogo):
     actor=mp.get(catalogo["actor"],nombre_actor)
     return actor
+def conocer_director(nombre_director, catalogo):
+    director = mp.get(catalogo["director"], nombre_director)
+    return director
 def obtener_primera_pelicula(catalog):
     return mp.get(catalog["ids"],2)
 def obtener_ultima_pelicula(catalog):

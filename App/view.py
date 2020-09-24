@@ -132,7 +132,7 @@ while True:
     elif int(inputs[0]) == 6:
         actor_interes = input("digite el actor a buscar: ")
         con = controller.conocer_actor(cont, actor_interes)
-        pelis_6 = con["peliculas"]
+        pelis_6 = con[actor_interes]
         total_6 = lt.size(pelis_6)
         pelis_6x = me.getValue(pelis_6["vote_average"])
         print("-----------------------------------------------")
