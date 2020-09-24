@@ -40,7 +40,7 @@ es decir contiene los modelos con los datos en memoria
 
 def newCatalog():
 
-    catalog = {"movies":None,"casting":None,'ids': None,"productora":None,"genero":None,"pais":None
+    catalog = {"movies":None,"casting":None,'ids': None,"productora":None,"genero":None,"pais":None,"director":None
                 }
     catalog["movies"]=lt.newList("ARRAY_LIST",compareRecordIds)
 
@@ -64,7 +64,10 @@ def newCatalog():
                                    maptype='PROBING',
                                    loadfactor=0.5,
                                    comparefunction=compare_companies_byname)
-
+    catalog["director"]= mp.newMap(2000,
+                                   maptype='PROBING',
+                                   loadfactor=0.5,
+                                   comparefunction=compare_companies_byname)
     
     return catalog
 
@@ -125,6 +128,28 @@ def addmovie_pais(catalogo,nombre_pais,pelicula):
         mp.put(pais,nombre_pais,valor)
     lt.addLast(valor["peliculas"],pelicula)
 
+def agregar_director(catalogo,nombre_director,casting):
+    director=catalogo["director"]
+    pelicula=int(casting["id"])
+    pelicula=me.getValue(mp.get(catalogo["ids"],pelicula))
+    existe_director=mp.contains(director,nombre_director)
+    if(existe_director):
+        llave_valor=mp.get(director,nombre_director)
+        valor=me.getValue(llave_valor)
+    else:
+        valor=newCompanie(nombre_director)
+        mp.put(director,nombre_director,valor)
+    lt.addLast(valor["pelicula"],pelicula)
+    cmpavg = valor['vote_average']
+    movieavg=pelicula["vote_average"]
+    if(movieavg == 0.0):
+        valor["vote_average"]=float(movieavg)
+    else:
+        valor['vote_average'] = (cmpavg + float(movieavg)) / 2
+    
+
+    
+
 def newMovieCountry(name):
     pelicula = {'name': "", "peliculas": None}
     pelicula['name'] = name
@@ -149,6 +174,11 @@ def encontrar_genero(nombre_genero,catalogo):
 def conocer_pais(nombre_pais,catalogo):
     pais=mp.get(catalogo["pais"],nombre_pais)
     return pais
+
+def conocer_director(nombre_director,catalogo):
+    director=mp.get(catalogo["director"],nombre_director)
+    return director
+    
 def obtener_primera_pelicula(catalog):
     return mp.get(catalog["ids"],2)
 def obtener_ultima_pelicula(catalog):
