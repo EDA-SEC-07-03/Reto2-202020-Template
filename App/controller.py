@@ -54,7 +54,15 @@ def initCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+<<<<<<< HEAD
+<<<<<<< HEAD
+def loadCSVFile (file,catalog):
+=======
 def loadCSVFileMovies (file,catalog):
+>>>>>>> j.quirogar
+=======
+def loadCSVFileMovies (file,catalog):
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
     dialect = csv.excel()
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
@@ -62,6 +70,11 @@ def loadCSVFileMovies (file,catalog):
         for elemento in row: 
             model.addmovie(catalog,elemento)
             companies=[elemento["production_companies"]]
+<<<<<<< HEAD
+            for i in companies:
+                model.addmovie_company(catalog,i,elemento)
+=======
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
             genero=elemento["genres"].split("|")
             paises=[elemento["production_countries"]]
             for cm in companies:
@@ -74,6 +87,23 @@ def loadCSVFileMovies (file,catalog):
 def loadCSVFileCasting(file,catalog):
     dialect = csv.excel()
     dialect.delimiter=";"
+<<<<<<< HEAD
+    actores = []
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        x=1
+        for elemento in row: 
+            model.addcasting(catalog,elemento)
+def loadCSVFileCastingActor(file,catalog):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        for elemento in row: 
+           actores = [elemento["actor1_name"],elemento["actor2_name"],elemento["actor3_name"],elemento["actor4_name"],elemento["actor5_name"]]
+           for act in actores:
+               model.addmovie_actor(catalog, act, elemento)
+=======
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         for elemento in row: 
@@ -89,6 +119,7 @@ def loadCSVFileCasting2(file,catalog):
             for di in directores:
                 model.agregar_director(catalog,di,elemento)
         
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
 
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
@@ -111,12 +142,27 @@ def loadMovies(dire1,dire2,catalog):
 def conocer_compañia(catalog, compañia):
     x = model.encontrar_compañia(compañia, catalog)
     return x
+<<<<<<< HEAD
+def loadMovies(dire1,dire2,catalog):
+    loadCSVFileCasting(dire2,catalog)
+    loadCSVFileMovies(dire1,catalog)
+    loadCSVFileCastingActor(dire2, catalog)
+def conocer_actor(catalog, actor):
+    x = model.conocer_actor(actor, catalog)
+    return x
+def conocer_compañia(catalog, compañia):
+    x = model.encontrar_compañia(compañia, catalog)
+    return x
+=======
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
 def conocer_genero(catalog,genero):
     x= model.encontrar_genero(genero,catalog)
     return x
 def conocer_pais(catalog,pais):
     xd=model.conocer_pais(pais,catalog)
     return xd
+<<<<<<< HEAD
+=======
 
 def conocer_director(catalog,director):
     x=model.conocer_director(director,catalog)
@@ -127,3 +173,4 @@ def conocer_director(catalog,director):
 
 
 
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
