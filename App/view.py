@@ -151,10 +151,6 @@ while True:
         print("Peliculas de:",pais)
         print("Titulo  Director  Fecha lanzamiento")
         print("______________________________________________")
-
-
-
-
     else:
         sys.exit(0)
 sys.exit(0)
