@@ -33,7 +33,7 @@ es decir contiene los modelos con los datos en memoria
 """
 
 # -----------------------------------------------------
-# API del TAD Catalogo de peliculas
+# API del TAD Catalogo de peliculasx
 # -----------------------------------------------------
 #325001
 #2003
@@ -141,7 +141,7 @@ def addmovie_pais(catalogo,nombre_pais,pelicula):
     pais=catalogo["pais"]
     pos_director=pelicula["\ufeffid"]
     existe_pais=mp.contains(pais,nombre_pais)
-    director=me.getValue(mp.get(catalogo["casting"],pos_director))["director_name"]
+    director=me.getValue(mp.get(catalogo["casting"],pos_director))[""]
     pelicula["director"]=director
     if(existe_pais):
         llave_valor=mp.get(pais,nombre_pais)
