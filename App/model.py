@@ -123,6 +123,26 @@ def addmovie_pais(catalogo,nombre_pais,pelicula):
         valor=newMovieCountry(nombre_pais)
         mp.put(pais,nombre_pais,valor)
     lt.addLast(valor["peliculas"],pelicula)
+    
+def addmovie_actor(catalog, nombre_actor, casting):
+    actor = catalog["actor"]
+    pos_pelicula = int(casting["id"])
+    pelicula = me.getValue(mp.get(catalog["ids"], pos_pelicula))
+    existe_actor = mp.contains(actor,nombre_actor)
+    if existe_actor:
+        llave_valor = mp.get(actor, nombre_actor)
+        valor = me.getValue(llave_valor)
+    else:
+        valor = newCompanie(nombre_actor)
+        mp.put(actor, nombre_actor, valor)
+
+    lt.addLast(valor["pelicula"],pelicula)
+    promedio = valor["vote_average"]
+    pro_movie = pelicula["vote_average"]
+    if(pro_movie == 0.0):
+        valor["vote_average"]=float(pro_movie)
+    else:
+        valor['vote_average'] = (promedio + float(pro_movie)) / 2
 
 def newMovieCountry(name):
     pelicula = {'name': "", "peliculas": None}
