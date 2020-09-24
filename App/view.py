@@ -43,7 +43,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-moviesfile = "AllMoviesDetailsCleaned.csv"
+moviesfile = "SmallMoviesDetailsCleaned.csv"
+movies_casting= "MoviesCastingRaw-small.csv"
 
 
 
@@ -60,6 +61,7 @@ def printMenu():
     
     print("5- Descubrir productoras de cine")
     print("7- Imprimir película por género")
+    print("8- Imprimir película por país")
     print("0- Salir")
 
     
@@ -81,7 +83,7 @@ while True:
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         tiempo1=process_time()
-        controller.loadMovies(moviesfile,cont)
+        controller.loadMovies(moviesfile,movies_casting,cont)
         tiempo2=process_time()
         total=tiempo2-tiempo1
         print(total, "segundos")
@@ -158,6 +160,24 @@ while True:
 
 
 
+    elif int(inputs[0]) == 8:
+        pais=input("Pais a buscar:\n")
+        pelis=controller.conocer_pais(cont,pais)
+        pelis=me.getValue(pelis)
+        pelis2=pelis["peliculas"]
+        print("______________________________________________")
+        print("Peliculas de:",pais)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
+        x=1
+        for i in range(1,lt.size(pelis2)+1):
+            elem=lt.getElement(pelis2,i)
+            print(x,elem["title"],"   ",elem["director"],"   ",elem["release_date"])
+            x+=1
+        print("______________________________________________")
+        print("Peliculas de:",pais)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
     else:
         sys.exit(0)
 sys.exit(0)
