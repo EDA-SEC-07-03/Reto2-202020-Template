@@ -109,6 +109,6 @@ def conocer_pais(catalog,pais):
     xd=model.conocer_pais(pais,catalog)
     return xd
 def conocer_actor(nombre_actor,catalogo):
-    actor=mp.get(catalogo["actor"],nombre_actor)
+    actor=model.conocer_actor(nombre_actor,catalogo)
     return actor
             

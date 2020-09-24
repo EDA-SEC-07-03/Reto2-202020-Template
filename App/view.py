@@ -43,8 +43,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-moviesfile = "AllMoviesDetailsCleaned.csv"
-movies_casting= "AllMoviesCastingRaw.csv"
+moviesfile = "SmallMoviesDetailsCleaned.csv"
+movies_casting= "MoviesCastingRaw-small.csv"
 
 
 
@@ -108,12 +108,11 @@ while True:
         con= me.getValue(con)
         promedio=con['vote_average']
         peliculas=con["pelicula"]
-
-        x=1
         for i in range(1,lt.size(peliculas)+1):
             elemento=lt.getElement(peliculas,i)
             print(x,elemento["title"])
             x+=1
+        
     elif int(inputs[0]) == 7:
         generox=input("Digite su género a buscar:\n")
         pelis=controller.conocer_genero(cont,generox)
