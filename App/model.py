@@ -40,7 +40,7 @@ es decir contiene los modelos con los datos en memoria
 
 def newCatalog():
 
-    catalog = {"casting":None,'ids': None,"productora":None,"genero":None,"pais":None
+    catalog = {"casting":None,'ids': None,"productora":None,"genero":None,"pais":None,"actor":None
                 }
 
     catalog["casting"]=mp.newMap(400000,

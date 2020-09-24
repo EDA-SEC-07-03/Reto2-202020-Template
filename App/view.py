@@ -102,8 +102,18 @@ while True:
         print("titulo:",datosultima["title"])
     elif int(inputs[0]) == 5:
         pass
-    elif int(inputs[0]) ==6:
-        pass    
+    elif int(inputs[0]) == 6:
+        actor_interes = input("digite el actor a buscar: ")
+        con = controller.conocer_actor(cont, actor_interes)
+        con= me.getValue(con)
+        promedio=con['vote_average']
+        peliculas=con["pelicula"]
+
+        x=1
+        for i in range(1,lt.size(peliculas)+1):
+            elemento=lt.getElement(peliculas,i)
+            print(x,elemento["title"])
+            x+=1
     elif int(inputs[0]) == 7:
         generox=input("Digite su género a buscar:\n")
         pelis=controller.conocer_genero(cont,generox)
