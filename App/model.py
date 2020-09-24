@@ -180,3 +180,5 @@ def compare_companies_byname(keyname, company):
         return 1
     else:
         return -1
+
+
