@@ -120,11 +120,11 @@ def addmovie_director(catalog, nombre_director, casting):
     pelicula = me.getValue(mp.get(catalog["ids"], pos_pelicula))
     existe_director = mp.contains(director,nombre_director)
     if existe_director:
-        llave_valor = mp.get(actor, nombre_director)
+        llave_valor = mp.get(director, nombre_director)
         valor = me.getValue(llave_valor)
     else:
         valor = newCompanie(nombre_director)
-        mp.put(actor, nombre_director, valor)
+        mp.put(director, nombre_director, valor)
 
     lt.addLast(valor["pelicula"],pelicula)
     promedio = valor["vote_average"]

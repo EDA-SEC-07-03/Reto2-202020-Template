@@ -25,6 +25,7 @@ import config
 import model
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
+from DISClib.DataStructures import mapentry as me
 from App import controller
 from time import process_time 
 assert config
@@ -132,7 +133,7 @@ while True:
     elif int(inputs[0]) == 6:
         actor_interes = input("digite el actor a buscar: ")
         con = controller.conocer_actor(cont, actor_interes)
-        pelis_6 = con[actor_interes]
+
         total_6 = lt.size(pelis_6)
         pelis_6x = me.getValue(pelis_6["vote_average"])
         print("-----------------------------------------------")
@@ -148,8 +149,8 @@ while True:
         print("promedio de votos", pelis_6x)
 
         print("-----------------------------------------------")
-
-
+    elif int(inputs[0]) == 7:
+        director_name = 
 
     else:
         sys.exit(0)
