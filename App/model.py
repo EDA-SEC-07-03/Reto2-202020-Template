@@ -67,7 +67,11 @@ def newCatalog():
     catalog["actor"]= mp.newMap(350000,
                                    maptype='CHAINING',
                                    loadfactor=1.0,
-                                   comparefunction=compare_companies_byname)                               
+                                   comparefunction=compare_companies_byname)
+    catalog["director"]= mp.newMap(350000,
+                                   maptype='CHAINING',
+                                   loadfactor=1.0,
+                                   comparefunction=compare_companies_byname)                  
 
     
     return catalog
@@ -115,7 +119,7 @@ def addmovie_genre(catalogo,nombre_genero,pelicula):
     else:
         valor['vote_average'] = (cmpavg + float(movieavg)) / 2
 def addmovie_director(catalog, nombre_director, casting):
-    director = catalog["actor"]
+    director = catalog["director"]
     pos_pelicula = int(casting["id"])
     pelicula = me.getValue(mp.get(catalog["ids"], pos_pelicula))
     existe_director = mp.contains(director,nombre_director)
