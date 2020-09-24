@@ -42,7 +42,11 @@ operación seleccionada.
 
 
 moviesfile = "AllMoviesDetailsCleaned.csv"
+<<<<<<< HEAD
 
+=======
+moviesfile2 = "AllMoviesCastingRaw.csv"
+>>>>>>> j.quirogar
 
 
 # ___________________________________________________
@@ -56,6 +60,10 @@ def printMenu():
     print("3- Consultar el número de películas cargadas")
     print("4- Imprimir primera y ultima pelicula")
     print("5- Descubrir productoras de cine")
+<<<<<<< HEAD
+=======
+    print("6- Conocer actor")
+>>>>>>> j.quirogar
     print("0- Salir")
 
     
@@ -77,7 +85,7 @@ while True:
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         tiempo1=process_time()
-        controller.loadMovies(moviesfile,cont)
+        print(controller.loadMovies(moviesfile,moviesfile2,cont))
         tiempo2=process_time()
         total=tiempo2-tiempo1
         print(total, "segundos")
@@ -130,6 +138,25 @@ while True:
 
 
 
+    elif int(inputs[0]) == 6:
+        actor_interes = input("digite el actor a buscar: ")
+        con = controller.conocer_actor(cont, actor_interes)
+        pelis_6 = con["peliculas"]
+        total_6 = lt.size(pelis_6)
+        pelis_6x = me.getValue(pelis_6["vote_average"])
+        print("-----------------------------------------------")
+        for i in range(1,lt.size(pelis_6)+1):
+            elemento=lt.getElement(pelis_6,i)
+            print("peliculas en las que aparece el actor:   ", elemento["title"])
+        print("-----------------------------------------------")
+
+        print("total de peliculas", total_6)
+
+        print("-----------------------------------------------")
+
+        print("promedio de votos", pelis_6x)
+
+        print("-----------------------------------------------")
 
 
 
