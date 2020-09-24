@@ -54,7 +54,7 @@ def initCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def loadCSVFile (file,catalog):
+def loadCSVFileMovies (file,catalog):
     dialect = csv.excel()
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
@@ -63,10 +63,22 @@ def loadCSVFile (file,catalog):
             model.addmovie(catalog,elemento)
             companies=[elemento["production_companies"]]
             genero=elemento["genres"].split("|")
+            paises=[elemento["production_countries"]]
             for cm in companies:
                 model.addmovie_company(catalog,cm,elemento)
             for gn in  genero:
                 model.addmovie_genre(catalog,gn,elemento)
+            for ps in paises:
+                model.addmovie_pais(catalog,ps,elemento)
+
+def loadCSVFileCasting(file,catalog):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open( config.data_dir + file, encoding="utf-8") as csvfile:
+        row = csv.DictReader(csvfile, dialect=dialect)
+        x=1
+        for elemento in row: 
+            model.addcasting(catalog,elemento)
 
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
@@ -81,8 +93,10 @@ def datos_primera(datos1 , datos2  ):
     datos_entrega = model.datos_pelicula(datos1, datos2)
     return datos_entrega
 
-def loadMovies(dire,catalog):
-    loadCSVFile(dire,catalog)
+def loadMovies(dire1,dire2,catalog):
+    loadCSVFileCasting(dire2,catalog)
+    loadCSVFileMovies(dire1,catalog)
+    
 
 def conocer_compañia(catalog, compañia):
     x = model.encontrar_compañia(compañia, catalog)
@@ -90,7 +104,9 @@ def conocer_compañia(catalog, compañia):
 def conocer_genero(catalog,genero):
     x= model.encontrar_genero(genero,catalog)
     return x
-
+def conocer_pais(catalog,pais):
+    xd=model.conocer_pais(pais,catalog)
+    return x
 
 
 
