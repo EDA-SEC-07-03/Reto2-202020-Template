@@ -43,8 +43,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-moviesfile = "SmallMoviesDetailsCleaned.csv"
-movies_casting= "MoviesCastingRaw-small.csv"
+moviesfile = "AllMoviesDetailsCleaned.csv"
+movies_casting= "AllMoviesCastingRaw.csv"
 
 
 
@@ -58,8 +58,8 @@ def printMenu():
     print("2- Cargar información en el catálogo")
     print("3- Consultar el número de películas cargadas")
     print("4- Imprimir primera y ultima pelicula")
-    
     print("5- Descubrir productoras de cine")
+    print("6- Consultar películas por director")
     print("7- Imprimir película por género")
     print("8- Imprimir película por país")
     print("0- Salir")
@@ -135,7 +135,28 @@ while True:
         print("promedio de votos", mapax)
 
         print("-----------------------------------------------")
-
+    
+    elif int(inputs[0]) == 6:
+        director=input("Digite su director:\n")
+        pelis_director=mp.get(cont,director)
+        pelis_directorx=me.getValue(pelis_director)
+        pelis1=pelis_directorx["pelicula"]
+        promedio=pelis_directorx["vote_average"]
+        print("______________________________________________")
+        print("Director elegido:",director)
+        print("El total de películas es:",lt.size(pelis1))
+        print("Promedio del director",promedio)
+        print("______________________________________________")
+        x=1
+        for i in range(1,lt.size(pelis1)+1):
+            elem=lt.getElement(pelis1,i)
+            print(x,elem)
+            x+=1
+        print("______________________________________________")
+        print("Director elegido:",director)
+        print("El total de películas es:",lt.size(pelis1))
+        print("Promedio del director",promedio)
+        print("______________________________________________")
     elif int(inputs[0]) == 7:
         generox=input("Digite su género a buscar:\n")
         pelis=controller.conocer_genero(cont,generox)
@@ -157,7 +178,6 @@ while True:
         print("Total películas",lt.size(pelis1))
         print("Promedio del género",promedio)
         print("______________________________________________")
-
 
 
     elif int(inputs[0]) == 8:
