@@ -43,8 +43,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-moviesfile = "SmallMoviesDetailsCleaned.csv"
-movies_casting= "MoviesCastingRaw-small.csv"
+moviesfile = "AllMoviesDetailsCleaned.csv"
+movies_casting= "AllMoviesCastingRaw.csv"
 
 
 
@@ -108,10 +108,16 @@ while True:
         con= me.getValue(con)
         promedio=con['vote_average']
         peliculas=con["pelicula"]
+
+        x=1
+        print("Total de películas:",lt.size(peliculas),"Promedio de calificacioón:",promedio)
+        print("______________________________________________")
         for i in range(1,lt.size(peliculas)+1):
             elemento=lt.getElement(peliculas,i)
             print(x,elemento["title"])
             x+=1
+        print("______________________________________________")
+        print("Total de películas:",lt.size(peliculas),"Promedio de calificacioón:",promedio)
         
     elif int(inputs[0]) == 7:
         generox=input("Digite su género a buscar:\n")

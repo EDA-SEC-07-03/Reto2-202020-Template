@@ -45,27 +45,27 @@ def newCatalog():
 
     catalog["casting"]=mp.newMap(400000,
                                    maptype='CHAINING',
-                                   loadfactor=2,
+                                   loadfactor=1,
                                    comparefunction=compareMapMovieIds)
     
     catalog["genero"]=mp.newMap(23,maptype='CHAINING',
-                                   loadfactor=2,
+                                   loadfactor=1,
                                    comparefunction=compare_companies_byname)
     catalog["pais"]=mp.newMap(197,maptype='CHAINING',
-                                   loadfactor=2,
+                                   loadfactor=1,
                                    comparefunction=compare_companies_byname)
     
     catalog['ids'] = mp.newMap(400000,
                                    maptype='CHAINING',
-                                   loadfactor=2,
+                                   loadfactor=1,
                                    comparefunction=compareMapMovieIds)
     catalog["productora"]= mp.newMap(40000,
                                    maptype='CHAINING',
-                                   loadfactor=2,
+                                   loadfactor=1,
                                    comparefunction=compare_companies_byname)
     catalog["actor"]= mp.newMap(350000,
                                    maptype='CHAINING',
-                                   loadfactor=2,
+                                   loadfactor=1,
                                    comparefunction=compare_companies_byname) 
 
     
@@ -74,7 +74,7 @@ def newCatalog():
 # Funciones para agregar informacion al catalogo
 
 def addmovie(catalog, movie):
-    mp.put(catalog['ids'], movie["id"], movie)
+    mp.put(catalog['ids'], movie["\ufeffid"], movie)
 
 def addcasting(catalog,casting):
     mp.put(catalog["casting"],casting["id"],casting)
@@ -116,7 +116,7 @@ def addmovie_genre(catalogo,nombre_genero,pelicula):
 
 def addmovie_pais(catalogo,nombre_pais,pelicula):
     pais=catalogo["pais"]
-    pos_director=pelicula["id"]
+    pos_director=pelicula["\ufeffid"]
     existe_pais=mp.contains(pais,nombre_pais)
     director=me.getValue(mp.get(catalogo["casting"],pos_director))["director_name"]
     pelicula["director"]=director
@@ -166,9 +166,9 @@ def newCompanie(name):
 def encontrar_compañia(compania,catalogo):
     companie=mp.get(catalogo["productora"],compania)
     return companie
-def conocer_actor(actor,catalogo):
-    actorxx=mp.get(catalogo["actor"],actor)
-    return actorxx
+def conocer_actor2(actor,catalogo):
+    principal=mp.get(catalogo["actor"],actor)
+    return principal
 def encontrar_genero(nombre_genero,catalogo):
     genero=mp.get(catalogo["genero"],nombre_genero)
     return genero

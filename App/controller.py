@@ -108,7 +108,8 @@ def conocer_genero(catalog,genero):
 def conocer_pais(catalog,pais):
     xd=model.conocer_pais(pais,catalog)
     return xd
-def conocer_actor(nombre_actor,catalogo):
-    actor=model.conocer_actor(nombre_actor,catalogo)
-    return actor
+def conocer_actor(catalog,actor):
+    x=model.conocer_actor2(actor,catalog)
+    return x
+
             
