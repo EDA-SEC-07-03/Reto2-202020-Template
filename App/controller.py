@@ -54,16 +54,16 @@ def initCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def loadCSVFile (file,catalog, parametro):
+def loadCSVFile (file,catalog):
     dialect = csv.excel()
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         for elemento in row: 
             model.addmovie(catalog,elemento)
-            companies=[elemento[parametro]]
+            companies=[elemento["production_companies"]]
             for i in companies:
-                model.addmovie_company(catalog,i,elemento, parametro)
+                model.addmovie_company(catalog,i,elemento)
 
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
@@ -84,11 +84,3 @@ def loadMovies(dire,catalog):
 def conocer_compañia(catalog, compañia):
     x = model.encontrar_compañia(compañia, catalog)
     return x
-def saber_director(director, catalogo):
-    x = model.conocer_direcotor(director, catalogo)
-    return x
-
-x = initCatalog()
-y = loadCSVFile("AllMoviesCastingRaw.csv",x, "director_name")
-resultado = saber_director("Stephen Hopkins", y)
-print(resultado)

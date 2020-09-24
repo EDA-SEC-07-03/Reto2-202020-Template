@@ -80,6 +80,23 @@ def addmovie_company(catalogo,nombre_compañia,pelicula):
         companie['vote_average'] = float(movieavg)
     else:
         companie['vote_average'] = (cmpavg + float(movieavg)) / 2
+def addmovie_director(catalogo,nombre_director,pelicula):
+    directores=catalogo["director"]
+    existe_director=mp.contains(directores,nombre_director)
+    if(existe_director):
+        entry = mp.get(directores, nombre_director)
+        director = me.getValue(entry)
+    else:
+        director = newCompanie(nombre_director)
+        mp.put(directores, nombre_director, director)
+    lt.addLast(director['pelicula'], pelicula)
+
+    cmpavg = director['vote_average']
+    movieavg = pelicula['vote_average']
+    if (movieavg == 0.0):
+        director['vote_average'] = float(movieavg)
+    else:
+        director['vote_average'] = (cmpavg + float(movieavg)) / 2
 
 def newCompanie(name):
     pelicula = {'name': "", "pelicula": None,  "vote_average": 0}
