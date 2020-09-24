@@ -149,8 +149,6 @@ while True:
         print("promedio de votos", pelis_6x)
 
         print("-----------------------------------------------")
-    elif int(inputs[0]) == 7:
-        director_name = 
 
     else:
         sys.exit(0)
