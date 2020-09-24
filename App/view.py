@@ -132,6 +132,9 @@ while True:
         print("Total películas",lt.size(pelis1))
         print("Promedio del género",promedio)
         print("______________________________________________")
+     elif int(inputs[0]) == 8:
+         pais=input("Pais a buscar:\n")
+         
 
     else:
         sys.exit(0)
