@@ -23,6 +23,8 @@
 import sys
 import config
 import model
+from DISClib.ADT import map as mp
+from DISClib.DataStructures import mapentry as me
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
@@ -41,8 +43,13 @@ operación seleccionada.
 # ___________________________________________________
 
 
+<<<<<<< HEAD
 moviesfile = "AllMoviesDetailsCleaned.csv"
 <<<<<<< HEAD
+=======
+moviesfile = "SmallMoviesDetailsCleaned.csv"
+movies_casting= "MoviesCastingRaw-small.csv"
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
 
 =======
 moviesfile2 = "AllMoviesCastingRaw.csv"
@@ -59,11 +66,17 @@ def printMenu():
     print("2- Cargar información en el catálogo")
     print("3- Consultar el número de películas cargadas")
     print("4- Imprimir primera y ultima pelicula")
+    
     print("5- Descubrir productoras de cine")
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     print("6- Conocer actor")
 >>>>>>> j.quirogar
+=======
+    print("7- Imprimir película por género")
+    print("8- Imprimir película por país")
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
     print("0- Salir")
 
     
@@ -85,7 +98,11 @@ while True:
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         tiempo1=process_time()
+<<<<<<< HEAD
         print(controller.loadMovies(moviesfile,moviesfile2,cont))
+=======
+        controller.loadMovies(moviesfile,movies_casting,cont)
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
         tiempo2=process_time()
         total=tiempo2-tiempo1
         print(total, "segundos")
@@ -113,6 +130,8 @@ while True:
         print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[5]))
         print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[6]))
         print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[7]))
+    
+    
 
 
     elif int(inputs[0]) == 5:
@@ -136,6 +155,7 @@ while True:
 
         print("-----------------------------------------------")
 
+<<<<<<< HEAD
 
 
     elif int(inputs[0]) == 6:
@@ -160,6 +180,50 @@ while True:
 
 
 
+=======
+    elif int(inputs[0]) == 7:
+        generox=input("Digite su género a buscar:\n")
+        pelis=controller.conocer_genero(cont,generox)
+        pelisx=me.getValue(pelis)
+        pelis1=pelisx["pelicula"]
+        promedio=pelisx["vote_average"]
+        print("______________________________________________")
+        print("Género elegido:",generox)
+        print("Total películas",lt.size(pelis1))
+        print("Promedio del género",promedio)
+        print("______________________________________________")
+        x=1
+        for i in range(1,lt.size(pelis1)+1):
+            elem=lt.getElement(pelis1,i)
+            print(x,elem)
+            x+=1
+        print("______________________________________________")
+        print("Género elegido:",generox)
+        print("Total películas",lt.size(pelis1))
+        print("Promedio del género",promedio)
+        print("______________________________________________")
+
+
+
+    elif int(inputs[0]) == 8:
+        pais=input("Pais a buscar:\n")
+        pelis=controller.conocer_pais(cont,pais)
+        pelis=me.getValue(pelis)
+        pelis2=pelis["peliculas"]
+        print("______________________________________________")
+        print("Peliculas de:",pais)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
+        x=1
+        for i in range(1,lt.size(pelis2)+1):
+            elem=lt.getElement(pelis2,i)
+            print(x,elem["title"],"   ",elem["director"],"   ",elem["release_date"])
+            x+=1
+        print("______________________________________________")
+        print("Peliculas de:",pais)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
+>>>>>>> 0c57cbc6be830e2f84caaa21f8c36ab04ff58b86
     else:
         sys.exit(0)
 sys.exit(0)
