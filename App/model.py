@@ -40,38 +40,37 @@ es decir contiene los modelos con los datos en memoria
 
 def newCatalog():
 
-    catalog = {"movies":None,"casting":None,'ids': None,"productora":None,"genero":None,"pais":None
+    catalog = {"casting":None,'ids': None,"productora":None,"genero":None,"pais":None,"actor":None
                 }
-    catalog["movies"]=lt.newList("ARRAY_LIST",compareRecordIds)
 
-    catalog["casting"]=mp.newMap(350000,
+    catalog["casting"]=mp.newMap(400000,
                                    maptype='CHAINING',
-                                   loadfactor=1.0,
+                                   loadfactor=1,
                                    comparefunction=compareMapMovieIds)
     
     catalog["genero"]=mp.newMap(23,maptype='CHAINING',
-                                   loadfactor=1.0,
+                                   loadfactor=1,
                                    comparefunction=compare_companies_byname)
     catalog["pais"]=mp.newMap(197,maptype='CHAINING',
-                                   loadfactor=1.0,
+                                   loadfactor=1,
                                    comparefunction=compare_companies_byname)
     
-    catalog['ids'] = mp.newMap(350000,
+    catalog['ids'] = mp.newMap(400000,
                                    maptype='CHAINING',
-                                   loadfactor=1.0,
+                                   loadfactor=1,
                                    comparefunction=compareMapMovieIds)
-    catalog["productora"]= mp.newMap(35000,
+    catalog["productora"]= mp.newMap(40000,
                                    maptype='CHAINING',
-                                   loadfactor=1.0,
+                                   loadfactor=1,
                                    comparefunction=compare_companies_byname)
     catalog["actor"]= mp.newMap(350000,
                                    maptype='CHAINING',
-                                   loadfactor=1.0,
+                                   loadfactor=1,
                                    comparefunction=compare_companies_byname)
-    catalog["director"]= mp.newMap(350000,
+    catalog["director"]=mp.newMap(180000,
                                    maptype='CHAINING',
                                    loadfactor=1.0,
-                                   comparefunction=compare_companies_byname)                  
+                                   comparefunction=compare_companies_byname) 
 
     
     return catalog
@@ -79,10 +78,10 @@ def newCatalog():
 # Funciones para agregar informacion al catalogo
 
 def addmovie(catalog, movie):
-    mp.put(catalog['ids'], int(movie["\ufeffid"]), movie)
+    mp.put(catalog['ids'], movie["\ufeffid"], movie)
 
 def addcasting(catalog,casting):
-    mp.put(catalog["casting"],int(casting["id"]),casting)
+    mp.put(catalog["casting"],casting["id"],casting)
 
 def addmovie_company(catalogo,nombre_compañia,pelicula):
     companies=catalogo["productora"]
@@ -120,7 +119,7 @@ def addmovie_genre(catalogo,nombre_genero,pelicula):
         valor['vote_average'] = (cmpavg + float(movieavg)) / 2
 def addmovie_director(catalog, nombre_director, casting):
     director = catalog["director"]
-    pos_pelicula = int(casting["id"])
+    pos_pelicula = casting["id"]
     pelicula = me.getValue(mp.get(catalog["ids"], pos_pelicula))
     existe_director = mp.contains(director,nombre_director)
     if existe_director:
@@ -137,9 +136,24 @@ def addmovie_director(catalog, nombre_director, casting):
         valor["vote_average"]=float(pro_movie)
     else:
         valor['vote_average'] = (promedio + float(pro_movie)) / 2
+
+def addmovie_pais(catalogo,nombre_pais,pelicula):
+    pais=catalogo["pais"]
+    pos_director=pelicula["\ufeffid"]
+    existe_pais=mp.contains(pais,nombre_pais)
+    director=me.getValue(mp.get(catalogo["casting"],pos_director))["director_name"]
+    pelicula["director"]=director
+    if(existe_pais):
+        llave_valor=mp.get(pais,nombre_pais)
+        valor=me.getValue(llave_valor)
+    else:
+        valor=newMovieCountry(nombre_pais)
+        mp.put(pais,nombre_pais,valor)
+    lt.addLast(valor["peliculas"],pelicula)
+    
 def addmovie_actor(catalog, nombre_actor, casting):
     actor = catalog["actor"]
-    pos_pelicula = int(casting["id"])
+    pos_pelicula = casting["id"]
     pelicula = me.getValue(mp.get(catalog["ids"], pos_pelicula))
     existe_actor = mp.contains(actor,nombre_actor)
     if existe_actor:
@@ -156,21 +170,6 @@ def addmovie_actor(catalog, nombre_actor, casting):
         valor["vote_average"]=float(pro_movie)
     else:
         valor['vote_average'] = (promedio + float(pro_movie)) / 2
-    
-
-def addmovie_pais(catalogo,nombre_pais,pelicula):
-    pais=catalogo["pais"]
-    pos_director=int(pelicula["\ufeffid"])
-    existe_pais=mp.contains(pais,nombre_pais)
-    director=me.getValue(mp.get(catalogo["casting"],pos_director))
-    pelicula["director"]=director
-    if(existe_pais):
-        llave_valor=mp.get(pais,nombre_pais)
-        valor=me.getValue(llave_valor)
-    else:
-        valor=newMovieCountry(nombre_pais)
-        mp.put(pais,nombre_pais,valor)
-    lt.addLast(valor["peliculas"],pelicula)
 
 def newMovieCountry(name):
     pelicula = {'name': "", "peliculas": None}
@@ -190,6 +189,9 @@ def newCompanie(name):
 def encontrar_compañia(compania,catalogo):
     companie=mp.get(catalogo["productora"],compania)
     return companie
+def conocer_actor2(actor,catalogo):
+    principal=mp.get(catalogo["actor"],actor)
+    return principal
 def encontrar_genero(nombre_genero,catalogo):
     genero=mp.get(catalogo["genero"],nombre_genero)
     return genero
@@ -203,30 +205,13 @@ def conocer_director(nombre_director, catalogo):
     director = mp.get(catalogo["director"], nombre_director)
     return director
 def obtener_primera_pelicula(catalog):
-    return mp.get(catalog["ids"],2)
+    return mp.get(catalog["ids"],"2")
 def obtener_ultima_pelicula(catalog):
-    return (mp.get(catalog["ids"],469219))
-def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
-    titulo=obtener_primera_pelicula["value"]["title"]
-    fecha_estreno=obtener_primera_pelicula["value"]["release_date"]
-    promedio_votacion=obtener_primera_pelicula["value"]["vote_average"]
-    idioma=obtener_primera_pelicula["value"]["spoken_languages"]
+    return (mp.get(catalog["ids"],"3026"))
 
-    titulo2=obtener_ultima_pelicula["value"]["title"]
-    fecha_estreno2=obtener_ultima_pelicula["value"]["release_date"]
-    promedio_votacion2=obtener_ultima_pelicula["value"]["vote_average"]
-    idioma2=obtener_ultima_pelicula["value"]["spoken_languages"]
-    return (titulo,fecha_estreno,promedio_votacion,idioma,titulo2,fecha_estreno2,promedio_votacion2,idioma2)
 # ==============================
 # Funciones de Comparacion \ufeff
 # ==============================
-
-def compareRecordIds(recordA, recordB):
-    if int(recordA["\ufeffid"]) == int(recordB["\ufeffid"]):
-        return 0
-    elif int(recordA["\ufeffid"]) > int(recordB["\ufeffid"]):
-        return 1
-    return -1
 def compareMapMovieIds(id, entry):
     """
     Compara dos ids de libros, id es un identificador
@@ -251,3 +236,5 @@ def compare_companies_byname(keyname, company):
         return 1
     else:
         return -1
+
+

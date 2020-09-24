@@ -49,7 +49,6 @@ def initCatalog():
     catalog = model.newCatalog()
     return catalog
 
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
@@ -94,23 +93,25 @@ def loadCSVFileCastingActor(file,catalog):
 def numeros_peliculas (file,catalog,cmpfunction):
     dialect = csv.excel()
     dialect.delimiter=";"
-    x = 0
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         for elemento in row: 
-            x += 1
-    return x
-def datos_primera(datos1 , datos2  ):
-    datos_entrega = model.datos_pelicula(datos1, datos2)
-    return datos_entrega
+           actores = [elemento["actor1_name"],elemento["actor2_name"],elemento["actor3_name"],elemento["actor4_name"],elemento["actor5_name"]]
+           for act in actores:
+               model.addmovie_actor(catalog, act, elemento)
+
+def datos_primera(catalogo):
+    datos=model.obtener_primera_pelicula(catalogo)
+    return datos
+def datos_ultima(catalogo):
+    datos=model.obtener_ultima_pelicula(catalogo)
+    return datos
 
 def loadMovies(dire1,dire2,catalog):
     loadCSVFileCasting(dire2,catalog)
     loadCSVFileMovies(dire1,catalog)
     loadCSVFileCastingActor(dire2, catalog)
-def conocer_actor(catalog, actor):
-    x = model.conocer_actor(actor, catalog)
-    return x
+    
 def conocer_compañia(catalog, compañia):
     x = model.encontrar_compañia(compañia, catalog)
     return x
@@ -123,10 +124,9 @@ def conocer_genero(catalog,genero):
 def conocer_pais(catalog,pais):
     xd=model.conocer_pais(pais,catalog)
     return xd
+def conocer_actor(catalog,actor):
+    x=model.conocer_actor2(actor,catalog)
+    return x
 
 
-def loadMovies(dire1,dire2,catalog):
-    loadCSVFileCasting(dire2,catalog)
-    loadCSVFileMovies(dire1,catalog)
-    loadCSVFileCastingActor(dire2, catalog)
-
+            

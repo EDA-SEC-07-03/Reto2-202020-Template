@@ -27,6 +27,7 @@ from DISClib.ADT import list as lt
 from DISClib.DataStructures import mapentry as me
 from DISClib.DataStructures import listiterator as it
 from DISClib.DataStructures import mapentry as me
+from DISClib.ADT import map as mp
 from App import controller
 from time import process_time 
 assert config
@@ -44,7 +45,8 @@ operación seleccionada.
 
 
 moviesfile = "AllMoviesDetailsCleaned.csv"
-moviesfile2 = "AllMoviesCastingRaw.csv"
+movies_casting= "AllMoviesCastingRaw.csv"
+
 
 
 # ___________________________________________________
@@ -60,6 +62,8 @@ def printMenu():
     print("5- Descubrir productoras de cine")
     print("6- Conocer actor")
     print("7- Conocer director")
+    print("8- Imprimir película por género")
+    print("9- Imprimir película por país")
     print("0- Salir")
 
     
@@ -72,7 +76,6 @@ Menu principal
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         # cont es el controlador que se usará de acá en adelante
@@ -81,7 +84,7 @@ while True:
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         tiempo1=process_time()
-        print(controller.loadMovies(moviesfile,moviesfile2,cont))
+        print(controller.loadMovies(moviesfile,movies_casting,cont))
         tiempo2=process_time()
         total=tiempo2-tiempo1
         print(total, "segundos")
@@ -89,28 +92,16 @@ while True:
         
     elif int(inputs[0]) == 3:
         print("Cargando numero de peliculas ....")
-        print (controller.numeros_peliculas(moviesfile,cont,model.compareRecordIds))
+        print(mp.size(cont["ids"]),mp.size(cont["casting"]))
         
-        
-
     elif int(inputs[0]) == 4:
-        print("Cargando info primera y segunda pelicula ....")
-        print("___________________________________________________")
-        print("primera pelicula")
-        print("nombre de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[0]))
-        print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[1]))
-        print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[2]))
-        print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[3]))
-    
-        print("___________________________________________________")
-
-        print("segunda pelicula:     ")
-        print("nombre de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[4]))
-        print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[5]))
-        print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[6]))
-        print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[7]))
-
-
+        print("obteniendo primera y última película")
+        datosprimera=me.getValue(controller.datos_primera(cont))
+        datosultima=me.getValue(controller.datos_ultima(cont))
+        print("primera película")
+        print("titulo:",datosprimera["title"])
+        print("datos última")
+        print("titulo:",datosultima["title"])
     elif int(inputs[0]) == 5:
         productora_a_buscar = input(str(" digite compañía de producción: "))
         asd = controller.conocer_compañia(cont,productora_a_buscar)
@@ -131,7 +122,6 @@ while True:
         print("promedio de votos", mapax)
 
         print("-----------------------------------------------")
-
     elif int(inputs[0]) == 6:
         actor_interes = input("digite el actor a buscar: ")
         con = controller.conocer_actor(cont, actor_interes)
@@ -140,12 +130,54 @@ while True:
         peliculas=con["pelicula"]
 
         x=1
+        print("Total de películas:",lt.size(peliculas),"Promedio de calificacioón:",promedio)
+        print("______________________________________________")
         for i in range(1,lt.size(peliculas)+1):
             elemento=lt.getElement(peliculas,i)
             print(x,elemento["title"])
             x+=1
-        print("total de peliculas: ", x-1)
-        print("promedio peliculas: ", promedio)
+        print("______________________________________________")
+        print("Total de películas:",lt.size(peliculas),"Promedio de calificacioón:",promedio)
+        
+    elif int(inputs[0]) == 8:
+        generox=input("Digite su género a buscar:\n")
+        pelis=controller.conocer_genero(cont,generox)
+        pelisx=me.getValue(pelis)
+        pelis1=pelisx["pelicula"]
+        promedio=pelisx["vote_average"]
+        print("______________________________________________")
+        print("Género elegido:",generox)
+        print("Total películas",lt.size(pelis1))
+        print("Promedio del género",promedio)
+        print("______________________________________________")
+        x=1
+        for i in range(1,lt.size(pelis1)+1):
+            elem=lt.getElement(pelis1,i)
+            print(x,elem["title"])
+            x+=1
+        print("______________________________________________")
+        print("Género elegido:",generox)
+        print("Total películas",lt.size(pelis1))
+        print("Promedio del género",promedio)
+        print("______________________________________________")
+    elif int(inputs[0]) == 9:
+        pais=input("Pais a buscar:\n")
+        pelis=controller.conocer_pais(cont,pais)
+        pelis=me.getValue(pelis)
+        pelis2=pelis["peliculas"]
+        print("______________________________________________")
+        print("Peliculas de:",pais)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
+        x=1
+        for i in range(1,lt.size(pelis2)+1):
+            elemento=lt.getElement(pelis2,i)
+            print(x,elemento["title"],"  ",elemento["director"],"  ",elemento["release_date"])
+            x+=1
+        print("______________________________________________")
+        print("Peliculas de:",pais)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
     elif int(inputs[0]) == 7:
         director = input("digite el nombre del director a conocer: ")
         con_1 = controller.conocer_director(cont, director)
@@ -159,6 +191,10 @@ while True:
             y += 1
         print("total de peliculas: ", y-1)
         print("promedio de peliculas: ", promedio_1)
+        print("______________________________________________")
+        print("Peliculas de:",director)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
 
     else:
         sys.exit(0)
