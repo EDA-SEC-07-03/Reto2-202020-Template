@@ -76,7 +76,6 @@ def loadCSVFileCasting(file,catalog):
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
-        x=1
         for elemento in row: 
             model.addcasting(catalog,elemento)
 def loadCSVFileCastingActor(file,catalog):
@@ -121,3 +120,10 @@ def conocer_genero(catalog,genero):
 def conocer_pais(catalog,pais):
     xd=model.conocer_pais(pais,catalog)
     return xd
+
+
+def loadMovies(dire1,dire2,catalog):
+    loadCSVFileCasting(dire2,catalog)
+    loadCSVFileMovies(dire1,catalog)
+    loadCSVFileCastingActor(dire2, catalog)
+

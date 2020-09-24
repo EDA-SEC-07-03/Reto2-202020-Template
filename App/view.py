@@ -24,6 +24,7 @@ import sys
 import config
 import model
 from DISClib.ADT import list as lt
+from DISClib.DataStructures import mapentry as me
 from DISClib.DataStructures import listiterator as it
 from App import controller
 from time import process_time 
@@ -111,9 +112,9 @@ while True:
     elif int(inputs[0]) == 5:
         productora_a_buscar = input(str(" digite compañía de producción: "))
         asd = controller.conocer_compañia(cont,productora_a_buscar)
-        mapa= asd["value"]["pelicula"]
+        mapa= me.getValue(asd)
         total=lt.size(mapa)
-        mapax= asd["value"]["vote_average"]
+        mapax= me.getValue
         print("-----------------------------------------------")
         for i in range(1,lt.size(mapa)+1):
             elemento=lt.getElement(mapa,i)
@@ -132,25 +133,15 @@ while True:
     elif int(inputs[0]) == 6:
         actor_interes = input("digite el actor a buscar: ")
         con = controller.conocer_actor(cont, actor_interes)
-        pelis_6 = con[actor_interes]
-        total_6 = lt.size(pelis_6)
-        pelis_6x = me.getValue(pelis_6["vote_average"])
-        print("-----------------------------------------------")
-        for i in range(1,lt.size(pelis_6)+1):
-            elemento=lt.getElement(pelis_6,i)
-            print("peliculas en las que aparece el actor:   ", elemento["title"])
-        print("-----------------------------------------------")
+        con= me.getValue(con)
+        promedio=con['vote_average']
+        peliculas=con["pelicula"]
 
-        print("total de peliculas", total_6)
-
-        print("-----------------------------------------------")
-
-        print("promedio de votos", pelis_6x)
-
-        print("-----------------------------------------------")
-
-
-
+        x=1
+        for i in range(1,lt.size(peliculas)+1):
+            elemento=lt.getElement(peliculas,i)
+            print(x,elemento["title"])
+            x+=1
     else:
         sys.exit(0)
 sys.exit(0)
