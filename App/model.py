@@ -123,7 +123,7 @@ def addmovie_pais(catalogo,nombre_pais,pelicula):
     else:
         valor=newMovieCountry(nombre_pais)
         mp.put(pais,nombre_pais,valor)
-    lt.addLast(valor["peliculas"],pelicula["production_countries"])
+    lt.addLast(valor["peliculas"],pelicula)
 
 def newMovieCountry(name):
     pelicula = {'name': "", "peliculas": None}

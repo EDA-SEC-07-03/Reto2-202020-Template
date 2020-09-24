@@ -106,7 +106,7 @@ def conocer_genero(catalog,genero):
     return x
 def conocer_pais(catalog,pais):
     xd=model.conocer_pais(pais,catalog)
-    return x
+    return xd
 
 
 

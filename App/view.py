@@ -61,6 +61,7 @@ def printMenu():
     
     
     print("7- Imprimir película por género")
+    print("8- Imprimir película por país")
     print("0- Salir")
 
     
@@ -132,9 +133,27 @@ while True:
         print("Total películas",lt.size(pelis1))
         print("Promedio del género",promedio)
         print("______________________________________________")
-     elif int(inputs[0]) == 8:
-         pais=input("Pais a buscar:\n")
-         
+    elif int(inputs[0]) == 8:
+        pais=input("Pais a buscar:\n")
+        pelis=controller.conocer_pais(cont,pais)
+        pelis=me.getValue(pelis)
+        pelis2=pelis["peliculas"]
+        print("______________________________________________")
+        print("Peliculas de:",pais)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
+        x=1
+        for i in range(1,lt.size(pelis2)+1):
+            elem=lt.getElement(pelis2,i)
+            print(x,elem["title"],"   ",elem["director"],"   ",elem["release_date"])
+            x+=1
+        print("______________________________________________")
+        print("Peliculas de:",pais)
+        print("Titulo  Director  Fecha lanzamiento")
+        print("______________________________________________")
+
+
+
 
     else:
         sys.exit(0)
