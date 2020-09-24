@@ -74,7 +74,6 @@ def loadCSVFileMovies (file,catalog):
 def loadCSVFileCasting(file,catalog):
     dialect = csv.excel()
     dialect.delimiter=";"
-    actores = []
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         x=1
