@@ -40,14 +40,13 @@ es decir contiene los modelos con los datos en memoria
 
 def newCatalog():
 
-    catalog = {"movies":None,"casting":None,'ids': None,"productora":None,"genero":None,"pais":None
+    catalog = {"casting":None,'ids': None,"productora":None,"genero":None,"pais":None
                 }
-    catalog["movies"]=lt.newList("ARRAY_LIST",compareRecordIds)
 
-    catalog["casting"]=mp.newMap(2000,
+    catalog["casting"]=mp.newMap(400000,
                                    maptype='PROBING',
                                    loadfactor=0.5,
-                                   comparefunction=moviesIds)
+                                   comparefunction=compareMapMovieIds)
     
     catalog["genero"]=mp.newMap(23,maptype='PROBING',
                                    loadfactor=0.5,
@@ -56,11 +55,11 @@ def newCatalog():
                                    loadfactor=0.5,
                                    comparefunction=compare_companies_byname)
     
-    catalog['ids'] = mp.newMap(2000,
+    catalog['ids'] = mp.newMap(400000,
                                    maptype='PROBING',
                                    loadfactor=0.5,
-                                   comparefunction=moviesIds)
-    catalog["productora"]= mp.newMap(2000,
+                                   comparefunction=compareMapMovieIds)
+    catalog["productora"]= mp.newMap(40000,
                                    maptype='PROBING',
                                    loadfactor=0.5,
                                    comparefunction=compare_companies_byname)
@@ -71,10 +70,10 @@ def newCatalog():
 # Funciones para agregar informacion al catalogo
 
 def addmovie(catalog, movie):
-    mp.put(catalog['ids'], int(movie["id"]), movie)
+    mp.put(catalog['ids'], movie["\ufeffid"], movie)
 
 def addcasting(catalog,casting):
-    mp.put(catalog["casting"],int(casting["id"]),casting)
+    mp.put(catalog["casting"],casting["id"],casting)
 
 def addmovie_company(catalogo,nombre_compañia,pelicula):
     companies=catalogo["productora"]
@@ -113,7 +112,7 @@ def addmovie_genre(catalogo,nombre_genero,pelicula):
 
 def addmovie_pais(catalogo,nombre_pais,pelicula):
     pais=catalogo["pais"]
-    pos_director=int(pelicula["id"])
+    pos_director=pelicula["\ufeffid"]
     existe_pais=mp.contains(pais,nombre_pais)
     director=me.getValue(mp.get(catalogo["casting"],pos_director))["director_name"]
     pelicula["director"]=director
@@ -150,38 +149,22 @@ def conocer_pais(nombre_pais,catalogo):
     pais=mp.get(catalogo["pais"],nombre_pais)
     return pais
 def obtener_primera_pelicula(catalog):
-    return mp.get(catalog["ids"],2)
+    return mp.get(catalog["ids"],"2")
 def obtener_ultima_pelicula(catalog):
-    return (mp.get(catalog["ids"],469219))
-def datos_pelicula(obtener_primera_pelicula,obtener_ultima_pelicula):
-    titulo=obtener_primera_pelicula["value"]["title"]
-    fecha_estreno=obtener_primera_pelicula["value"]["release_date"]
-    promedio_votacion=obtener_primera_pelicula["value"]["vote_average"]
-    idioma=obtener_primera_pelicula["value"]["spoken_languages"]
+    return (mp.get(catalog["ids"],"3026"))
 
-    titulo2=obtener_ultima_pelicula["value"]["title"]
-    fecha_estreno2=obtener_ultima_pelicula["value"]["release_date"]
-    promedio_votacion2=obtener_ultima_pelicula["value"]["vote_average"]
-    idioma2=obtener_ultima_pelicula["value"]["spoken_languages"]
-    return (titulo,fecha_estreno,promedio_votacion,idioma,titulo2,fecha_estreno2,promedio_votacion2,idioma2)
 # ==============================
 # Funciones de Comparacion \ufeff
 # ==============================
-
-def compareRecordIds(recordA, recordB):
-    if int(recordA["id"]) == int(recordB["id"]):
-        return 0
-    elif int(recordA["id"]) > int(recordB["id"]):
-        return 1
-    return -1
-def moviesIds(id1, id2):
+def compareMapMovieIds(id, entry):
     """
-    Compara dos ids de libros
+    Compara dos ids de libros, id es un identificador
+    y entry una pareja llave-valor
     """
-    id2=int(id2["value"]["id"])
-    if (id1 == id2):
+    identry = me.getKey(entry)
+    if (int(id) == int(identry)):
         return 0
-    elif id1 > id2:
+    elif (int(id) > int(identry)):
         return 1
     else:
         return -1

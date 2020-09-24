@@ -49,7 +49,6 @@ def initCatalog():
     catalog = model.newCatalog()
     return catalog
 
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
@@ -76,28 +75,20 @@ def loadCSVFileCasting(file,catalog):
     dialect.delimiter=";"
     with open( config.data_dir + file, encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
-        x=1
         for elemento in row: 
             model.addcasting(catalog,elemento)
 
-def numeros_peliculas (file,catalog,cmpfunction):
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    x = 0
-    with open( config.data_dir + file, encoding="utf-8") as csvfile:
-        row = csv.DictReader(csvfile, dialect=dialect)
-        for elemento in row: 
-            x += 1
-    return x
-def datos_primera(datos1 , datos2  ):
-    datos_entrega = model.datos_pelicula(datos1, datos2)
-    return datos_entrega
+def datos_primera(catalogo):
+    datos=model.obtener_primera_pelicula(catalogo)
+    return datos
+def datos_ultima(catalogo):
+    datos=model.obtener_ultima_pelicula(catalogo)
+    return datos
 
 def loadMovies(dire1,dire2,catalog):
     loadCSVFileCasting(dire2,catalog)
     loadCSVFileMovies(dire1,catalog)
     
-
 def conocer_compañia(catalog, compañia):
     x = model.encontrar_compañia(compañia, catalog)
     return x

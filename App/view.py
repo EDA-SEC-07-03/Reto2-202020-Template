@@ -43,8 +43,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-moviesfile = "SmallMoviesDetailsCleaned.csv"
-movies_casting= "MoviesCastingRaw-small.csv"
+moviesfile = "AllMoviesDetailsCleaned.csv"
+movies_casting= "AllMoviesCastingRaw.csv"
 
 
 
@@ -58,7 +58,7 @@ def printMenu():
     print("2- Cargar información en el catálogo")
     print("3- Consultar el número de películas cargadas")
     print("4- Imprimir primera y ultima pelicula")
-    
+    print("5- Conocer compañia")
     
     print("7- Imprimir película por género")
     print("8- Imprimir película por país")
@@ -74,7 +74,6 @@ Menu principal
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         # cont es el controlador que se usará de acá en adelante
@@ -91,27 +90,20 @@ while True:
         
     elif int(inputs[0]) == 3:
         print("Cargando numero de peliculas ....")
-        print (controller.numeros_peliculas(moviesfile,cont,model.compareRecordIds))
+        print(mp.size(cont["ids"]),mp.size(cont["casting"]))
         
-        
-
     elif int(inputs[0]) == 4:
-        print("Cargando info primera y segunda pelicula ....")
-        print("___________________________________________________")
-        print("primera pelicula")
-        print("nombre de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[0]))
-        print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[1]))
-        print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[2]))
-        print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[3]))
-    
-        print("___________________________________________________")
-
-        print("segunda pelicula:     ")
-        print("nombre de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[4]))
-        print("fecha de estreno:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[5]))
-        print("promedio de la votacion:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[6]))
-        print("idioma de la pelicula:   ", str(controller.datos_primera(model.obtener_primera_pelicula(cont),model.obtener_ultima_pelicula(cont))[7]))
-    
+        print("obteniendo primera y última película")
+        datosprimera=me.getValue(controller.datos_primera(cont))
+        datosultima=me.getValue(controller.datos_ultima(cont))
+        print("primera película")
+        print("titulo:",datosprimera["title"])
+        print("datos última")
+        print("titulo:",datosultima["title"])
+    elif int(inputs[0]) == 5:
+        pass
+    elif int(inputs[0]) ==6:
+        pass    
     elif int(inputs[0]) == 7:
         generox=input("Digite su género a buscar:\n")
         pelis=controller.conocer_genero(cont,generox)
@@ -126,7 +118,7 @@ while True:
         x=1
         for i in range(1,lt.size(pelis1)+1):
             elem=lt.getElement(pelis1,i)
-            print(x,elem)
+            print(x,elem["title"])
             x+=1
         print("______________________________________________")
         print("Género elegido:",generox)
@@ -151,6 +143,7 @@ while True:
         print("Peliculas de:",pais)
         print("Titulo  Director  Fecha lanzamiento")
         print("______________________________________________")
+
     else:
         sys.exit(0)
 sys.exit(0)
