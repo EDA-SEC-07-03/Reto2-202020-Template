@@ -126,8 +126,25 @@ def conocer_pais(catalog,pais):
     xd=model.conocer_pais(pais,catalog)
     return xd
 def conocer_actor(catalog,actor):
-    x=model.conocer_actor2(actor,catalog)
-    return x
+    x=model.conocer_actor(actor,catalog)
+    llave_valor=me.getValue(x)
+    director_mas_collab=llave_valor["directores"]
+    valores=mp.valueSet(director_mas_collab)
+    directores=mp.keySet(director_mas_collab)
+    mas_colaboradores=lt.newList("ARRAY_LIST")
+    mayor=0
+    for i in range (1,lt.size(valores)):
+        valor_director=lt.getElement(valores,i)
+        if(valor_director >= mayor):
+            mayor=valor_director
+    for i in range (1,lt.size(directores)):
+        director=lt.getElement(directores,i)
+        if me.getValue(mp.get(director_mas_collab,director)) == mayor:
+            lt.addLast(mas_colaboradores,director)
+    llave_valor["directores"]=mas_colaboradores
+    return llave_valor
+    
+
 
 
             
