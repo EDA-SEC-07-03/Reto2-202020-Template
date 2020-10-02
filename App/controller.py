@@ -77,6 +77,7 @@ def loadCSVFileCasting(file,catalog):
         row = csv.DictReader(csvfile, dialect=dialect)
         for elemento in row: 
             model.addcasting(catalog,elemento)
+            
 def loadCSVFileCastingActor(file,catalog):
     dialect = csv.excel()
     dialect.delimiter=";"

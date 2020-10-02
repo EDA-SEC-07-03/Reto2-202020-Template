@@ -67,10 +67,13 @@ def newCatalog():
                                    maptype='CHAINING',
                                    loadfactor=1,
                                    comparefunction=compare_companies_byname)
-    catalog["director"]=mp.newMap(180000,
+    
+    catalog["director"]=mp.newMap(2,
                                    maptype='CHAINING',
                                    loadfactor=1.0,
                                    comparefunction=compare_companies_byname) 
+#180000
+                                   
 
     
     return catalog
@@ -132,10 +135,7 @@ def addmovie_director(catalog, nombre_director, casting):
     lt.addLast(valor["pelicula"],pelicula)
     promedio = valor["vote_average"]
     pro_movie = pelicula["vote_average"]
-    if(pro_movie == 0.0):
-        valor["vote_average"]=float(pro_movie)
-    else:
-        valor['vote_average'] = (promedio + float(pro_movie)) / 2
+    valor['vote_average'] = (promedio + float(pro_movie)) / 2
 
 def addmovie_pais(catalogo,nombre_pais,pelicula):
     pais=catalogo["pais"]
@@ -166,10 +166,8 @@ def addmovie_actor(catalog, nombre_actor, casting):
     lt.addLast(valor["pelicula"],pelicula)
     promedio = valor["vote_average"]
     pro_movie = pelicula["vote_average"]
-    if(pro_movie == 0.0):
-        valor["vote_average"]=float(pro_movie)
-    else:
-        valor['vote_average'] = (promedio + float(pro_movie)) / 2
+
+    valor['vote_average'] = (promedio + float(pro_movie)) / 2
 
 def newMovieCountry(name):
     pelicula = {'name': "", "peliculas": None}
